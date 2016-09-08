@@ -5,7 +5,7 @@ export default {
   name: 'ember-idx-tree',
   initialize: function() {
     if (!Em.Config) {
-        Em.Config = Config = Config.create()
+        Em.Config = Config.create()
     }
 
     var defaultConfig = Config.getConfig('default');

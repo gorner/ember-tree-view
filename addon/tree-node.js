@@ -1,6 +1,6 @@
 import Em from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
-var TreeNode, getProperty;
+var getProperty;
 
 var getProperty = function(obj, prop) {
   if (!obj) {
@@ -239,4 +239,3 @@ export default Em.Component.extend(WithConfigMixin, {
   }).observes('loading')
 
 });
-

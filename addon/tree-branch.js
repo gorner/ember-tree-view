@@ -14,7 +14,7 @@ export default Em.Component.extend(WithConfigMixin, {
    * this property is set during component markup creation
    */
   model: undefined,
-
+  
   /**
    * A list of {{#crossLink "TreeNode"}}nodes{{/crossLink}} instances.
    */

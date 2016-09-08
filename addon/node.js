@@ -1,42 +1,20 @@
-import Em from 'ember';
+import Ember from 'ember';
 
-var findChildrenOfNodeBy = function(currChild, key, value) {
-  var c, _i, _len, _ref, _ref1;
-  if (currChild.get(key) === value) {
-    return currChild;
-  } else if (((_ref = currChild.get('children')) != null ? _ref.length : void 0) > 0) {
-    _ref1 = currChild.get('children');
-    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-      c = _ref1[_i];
-      if (c.get(key) === value) {
-        return c;
-      } else {
-        findChildrenOfNodeBy(c, key, value);
-      }
-    }
-    return null;
-  }
-  return null;
-};
-
-/**
-An object that represents a node
-**/
-Node = Em.Object.extend({
+export default Ember.Object.extend({
   children: void 0,
 
   parent: void 0,
 
-  addChild: function(node) {
+  addChild(node) {
     if (!this.get('children')) {
       this.emptyChildren();
     }
     node.set('parent', this);
-    this.children.addObject(node(object));
+    this.children.addObject(node());
     return node;
   },
 
-  createChild: function(object) {
+  createChild(object) {
     var c, c1;
     if (!this.get('children')) {
       this.emptyChildren();
@@ -48,36 +26,42 @@ Node = Em.Object.extend({
     return c;
   },
 
-  removeChild: function(node) {
+  removeChild(node) {
     node.set('parent', void 0);
-    children.removeObject(node);
+    this.children.removeObject(node);
     return node;
   },
 
-  hasChildren: (function() {
-    var _ref;
-    return (_ref = this.get('children')) != null ? _ref.length : void 0;
-  }).property('children.length'),
-
-  emptyChildren: (function() {
-    return this.set('children', Em.A());
+  hasChildren: Ember.computed('children.length', {
+    get() {
+      var _ref;
+      return (_ref = this.get('children')) != null ? _ref.length : void 0;
+    }
   }),
 
-  hasParent: (function() {
-    return this.get('parent.parent') != null;
-  }).property('parent'),
-  
-  root: (function() {
-    var node;
-    node = this;
-    while (node.get('hasParent')) {
-      if (!node.get('hasParent')) {
-        return node;
-      }
-      node = node.get('parent');
+  emptyChildren: (function() {
+    return this.set('children', Ember.A());
+  }),
+
+  hasParent: Ember.computed('parent.parent', {
+    get() {
+      return this.get('parent.parent') != null;
     }
-    return node;
-  }).property('parent'),
+  }),
+
+  root: Ember.computed('parent', {
+    get() {
+      var node;
+      node = this;
+      while (node.get('hasParent')) {
+        if (!node.get('hasParent')) {
+          return node;
+        }
+        node = node.get('parent');
+      }
+      return node;
+    }
+  }),
 
   level: (function() {
     var currObj, i;
@@ -95,8 +79,25 @@ Node = Em.Object.extend({
   }).property('children.length'),
 
   findChildBy: function(key, name) {
-    return findChildrenOfNodeBy(this, key, name);
+    return this._findChildrenOfNodeBy(this, key, name);
+  },
+
+  _findChildrenOfNodeBy(currChild, key, value) {
+    var c, _i, _len, _ref, _ref1;
+    if (currChild.get(key) === value) {
+      return currChild;
+    } else if (((_ref = currChild.get('children')) != null ? _ref.length : void 0) > 0) {
+      _ref1 = currChild.get('children');
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        c = _ref1[_i];
+        if (c.get(key) === value) {
+          return c;
+        } else {
+          this._findChildrenOfNodeBy(c, key, value);
+        }
+      }
+      return null;
+    }
+    return null;
   }
 });
-
-export default Node;

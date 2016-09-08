@@ -20,7 +20,7 @@ var expandTree = function(async, node, depth) {
   node.set('requestReload', true);
   children = node.get('children');
   if (children && "function" === typeof children.then) {
-    return children.then((function(_this) {
+    return children.then((function() {
       return function(loadedChildren) {
         return loadedChildren.forEach(function(c) {
           return expandTree(async, c, depth - 1);
@@ -62,7 +62,7 @@ export default Em.Component.extend(WithConfigMixin, {
 
   /*
    * An array that contains the hovered actions to be triggered per node
-   * i.e: 
+   * i.e:
    * actionsMeta: [
    *    {classes: ['fa fa-eye'], action: 'eye', types: ['x', 'y']}
    *    {classes: ['fa fa-edit'], action: 'edit'}
