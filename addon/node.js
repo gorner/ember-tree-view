@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Object.extend({
+let Node = Ember.Object.extend({
   children: void 0,
 
   parent: void 0,
@@ -63,20 +63,24 @@ export default Ember.Object.extend({
     }
   }),
 
-  level: (function() {
-    var currObj, i;
-    i = 0;
-    currObj = this;
-    while (currObj.get('hasParent')) {
-      i++;
-      currObj = currObj.get('parent');
+  level: Ember.computed('children.length', {
+    get() {
+      var currObj, i;
+      i = 0;
+      currObj = this;
+      while (currObj.get('hasParent')) {
+        i++;
+        currObj = currObj.get('parent');
+      }
+      return i;
     }
-    return i;
-  }).property('children.length'),
+  }),
 
-  isLevel1: (function() {
-    return this.get('level') === 0;
-  }).property('children.length'),
+  isLevel1: Ember.computed('children.length', {
+    get() {
+      return this.get('level') === 0;
+    }
+  }),
 
   findChildBy: function(key, name) {
     return this._findChildrenOfNodeBy(this, key, name);
@@ -101,3 +105,5 @@ export default Ember.Object.extend({
     return null;
   }
 });
+
+export default Node;

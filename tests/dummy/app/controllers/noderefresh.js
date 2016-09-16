@@ -1,6 +1,6 @@
 import Em from "ember";
 
-export default Em.ObjectController.extend({
+export default Em.Controller.extend({
   words: ['Foo', 'Bar', 'Baz', 'Qux'],
   randomWord: function() {
     return this.words[Math.floor(Math.random() * this.words.length)];

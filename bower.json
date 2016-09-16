@@ -6,10 +6,11 @@
     "ember-qunit-notifications": "0.1.0",
     "highlightjs": "^9.6.0",
     "bootstrap": "^3.3.7",
-    "font-awesome": "fontawesome#^4.6.3"
+    "font-awesome": "~4.5.0"
   },
   "resolutions": {
     "qunit-notifications": "~0.1.0",
-    "ember": "~2.7.0"
+    "ember": "~2.7.0",
+    "font-awesome": "~4.5.0"
   }
 }

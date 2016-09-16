@@ -1,7 +1,7 @@
 {
   "name": "ember-idx-tree",
-  "version": "0.1.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.1",
+  "description": "Ambitious Tree Component for Ember.js",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -17,14 +17,12 @@
   },
   "license": "ASF2",
   "dependencies": {
-    "ember-idx-utils": "^0.2.0"
+    "ember-cli-babel": "^5.1.6"
   },
   "devDependencies": {
+    "broccoli-asset-rev": "^2.4.2",
     "broccoli-merge-trees": "^1.1.4",
     "broccoli-static-compiler": "^0.2.2",
-    "express": "^4.8.5",
-    "glob": "^4.0.5",
-    "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
     "ember-cli": "2.7.0",
     "ember-cli-app-version": "^1.0.0",
@@ -38,23 +36,23 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.7.0",
+    "ember-data": "2.8.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
+    "ember-font-awesome": "2.2.0",
+    "ember-idx-utils": "0.2.3",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
+    "express": "^4.8.5",
+    "glob": "^4.0.5",
     "loader.js": "^4.0.1"
   },
-  "description": "Ambitious Tree Component for Ember.js",
   "authors": [
     "Indexia Technologies, ltd."
   ],
   "keywords": [
     "ember-addon"
   ],
-  "dependencies": {
-    "ember-cli-babel": "^5.1.6"
-  },
   "ember-addon": {
     "configPath": "tests/dummy/config"
   },

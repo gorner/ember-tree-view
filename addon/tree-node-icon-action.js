@@ -1,13 +1,13 @@
-import Em from 'ember';
-import StyleBindingsMixin from 'ember-idx-utils/mixin/style-bindings';
-import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
+import Ember from 'ember';
+import StyleBindingsMixin from 'ember-idx-utils/mixins/style-bindings';
+import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
 
 /**
  * An icon action of a tree node
  * @class TreeNodeIconAction
  */
 
-export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
+export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
   attributeBindings: ['stickyMode:sticky'],
 
   /**
@@ -31,13 +31,15 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @property visibility
    * @private
    */
-  visibility: (function() {
-    if (this.get('sticky')) {
-      return 'visible';
-    } else {
-      return void 0;
+  visibility: Ember.computed("sticky", {
+    get() {
+      if (this.get('sticky')) {
+        return 'visible';
+      } else {
+        return void 0;
+      }
     }
-  }).property('sticky'),
+  }),
 
   /**
    * 'true' if the action icon should be sticky and not disappear when item is not hovered
@@ -75,7 +77,7 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @property node
    * @public
    */
-  node: Em.computed.alias('parentView.node'),
+  node: Ember.computed.alias('parentView.node'),
 
   /**
    * Invoked when the action is clicked

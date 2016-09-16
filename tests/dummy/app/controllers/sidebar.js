@@ -1,7 +1,8 @@
 import Em from 'ember';
 
-export default Em.ArrayController.extend({
+export default Em.Controller.extend({
   needs: ['application'],
+
   model: [
     {route: 'gettingstarted', text: 'Getting Started'},
     {route: 'simple', text: 'Simple'},
@@ -12,4 +13,5 @@ export default Em.ArrayController.extend({
     {route: 'multiselection', text: 'Multi Selection'},
     {route: 'noderefresh', text: 'Node Refresh'}
   ]
+
 });

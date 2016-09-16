@@ -1,7 +1,7 @@
 import Em from "ember";
 import TreeNode from 'ember-idx-tree/node';
 
-export default Em.ObjectController.extend({
+export default Em.Controller.extend({
   init: function() {
     var family, gaya, josh, lud, moses, suz, verdi;
     family = TreeNode.create({

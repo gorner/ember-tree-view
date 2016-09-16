@@ -1,5 +1,5 @@
-import Em from 'ember';
-import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
+import Ember from 'ember';
+import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
 
 /**
  * A branch of a tree.
@@ -7,18 +7,18 @@ import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
  * @class TreeBranch
  */
 
-export default Em.Component.extend(WithConfigMixin, {
+export default Ember.Component.extend(WithConfigMixin, {
 
   /**
    * The model to render its children within this branch
    * this property is set during component markup creation
    */
   model: undefined,
-  
+
   /**
    * A list of {{#crossLink "TreeNode"}}nodes{{/crossLink}} instances.
    */
-  children: Em.computed.alias('model.children'),
+  children: Ember.computed.alias('model.children'),
 
   /**
    * True if node's children should be loaded asynchronously
@@ -27,10 +27,12 @@ export default Em.Component.extend(WithConfigMixin, {
    */
   async: false,
   tagName: 'ul',
-  layoutName: 'em-tree-branch',
+  layoutName: 'Ember-tree-branch',
   classNameBindings: ['styleClasses'],
-  styleClasses: (function() {
-    var _ref;
-    return (_ref = this.get('config.tree.branchClasses')) != null ? _ref.join(" ") : void 0;
-  }).property()
+  styleClasses: Ember.computed("", {
+    get() {
+      var _ref;
+      return (_ref = this.get('config.tree.branchClasses')) != null ? _ref.join(" ") : void 0;
+    }
+  })
 });

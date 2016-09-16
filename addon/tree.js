@@ -1,5 +1,5 @@
 import Em from 'ember';
-import WithConfigMixin from 'ember-idx-utils/mixin/with-config';
+import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
 
 var refreshExpanded = function(node) {
   var children;
@@ -44,8 +44,6 @@ var expandTree = function(async, node, depth) {
   }
 };
 
-
-
 /**
  * A tree component
  *
@@ -55,10 +53,12 @@ export default Em.Component.extend(WithConfigMixin, {
   tagName: 'ul',
   layoutName: 'em-tree',
   classNameBindings: ['styleClasses'],
-  styleClasses: (function() {
-    var _ref;
-    return (_ref = this.get('config.tree.classes')) != null ? _ref.join(" ") : void 0;
-  }).property(),
+  styleClasses: Ember.computed("", {
+    get() {
+      var _ref;
+      return (_ref = this.get('config.tree.classes')) != null ? _ref.join(" ") : void 0;
+    }
+  }),
 
   /*
    * An array that contains the hovered actions to be triggered per node
@@ -104,7 +104,7 @@ export default Em.Component.extend(WithConfigMixin, {
   'selected-icon': 'fa fa-check',
   'unselected-icon': 'fa fa-times',
   'expand-depth': null,
-  expandByDepth: (function() {
+  expandByDepth: Ember.on('init', Em.observer('expand-depth', 'model', function() {
     var depth;
     if (!this.get('model')) {
       return;
@@ -116,9 +116,11 @@ export default Em.Component.extend(WithConfigMixin, {
       }
       return expandTree(this.get('async'), this.get('model'), depth);
     }
-  }).observes('expand-depth', 'model').on('init'),
+  })),
 
   'refresh-expanded': false,
 
-  observeRefreshExpanded: (function() {}).observes('refresh-expanded')
+  observeRefreshExpanded: Em.observer('refresh-expanded', function() {
+    // DO nothing
+  })
 });

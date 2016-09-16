@@ -1,6 +1,6 @@
 <span>
 {{#if hasIcon}}
-    <i {{action 'toggle'}} {{bind-attr class="iconClass"}}></i>
+    <i {{action 'toggle'}} class="{{iconClass}}"></i>
 {{else}}
     <a {{action 'toggle'}} class="text">*</a>
 {{/if}}
@@ -9,14 +9,14 @@
 {{#if tree.in-multi-selection}}
     <span class="em-tree-node-multiselection">
     {{#if multi-selected}}
-        <i {{action toggleSelection}} {{bind-attr class="tree.selected-icon"}}></i>
+        <i {{action "toggleSelection"}} class="{{tree.selected-icon}}"></i>
     {{else}}
-        <i {{action toggleSelection}} {{bind-attr class="tree.unselected-icon"}}></i>
+        <i {{action "toggleSelection"}} class="{{tree.unselected-icon}}"></i>
     {{/if}}
     </span>
 {{/if}}
 
-<span {{action select}} {{bind-attr class="nodeSelectedClasses :title"}}>
+<span {{action "select"}} bind-attr class="{{nodeSelectedClasses}} :title">
 {{model.title}}
 {{#if tree.hovered-actions}}
     <span class="actions">

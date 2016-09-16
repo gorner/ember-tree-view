@@ -1,8 +1,6 @@
 /*jshint node:true*/
-/* global require, module */
+/* global require, module */!2
 
-var mergeTrees = require( 'broccoli-merge-trees' ),
-    pickFiles  = require( 'broccoli-static-compiler' );
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
@@ -22,15 +20,9 @@ module.exports = function(defaults) {
 
   app.import( 'bower_components/bootstrap/dist/css/bootstrap-theme.css.map' );
   app.import('bower_components/bootstrap/dist/css/bootstrap.css');
-  app.import('bower_components/font-awesome/css/font-awesome.min.css');
   app.import('bower_components/highlightjs/highlight.pack.js');
   app.import('bower_components/highlightjs/styles/tomorrow.css');
 
-  var extraAssets = pickFiles( 'bower_components/font-awesome/fonts', {
-      srcDir  : '/',
-      files   : [ 'fontawesome-webfont.woff' ],
-      destDir : '/fonts'
-  });
 
-  return mergeTrees([app.toTree(), extraAssets]);
+  return app.toTree();
 };
