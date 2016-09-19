@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var Node = Ember.Object.extend({
+const TreeNode = Ember.Object.extend({
   children: void 0,
   parent: void 0,
 
@@ -19,7 +19,7 @@ var Node = Ember.Object.extend({
     if (!this.get('children')) {
       this.emptyChildren();
     }
-    let c = Node.create(object);
+    let c = TreeNode.create(object);
     c.set('parent', this);
     this.get('children').pushObject(c);
     return c;
