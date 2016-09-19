@@ -105,4 +105,4 @@ const TreeNode = Ember.Object.extend({
   }
 });
 
-export default Node;
+export default TreeNode;
