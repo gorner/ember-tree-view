@@ -1,5 +1,5 @@
 import Em from "ember";
-import TreeNode from 'ember-idx-tree/node';
+import TreeNode from 'ember-tree-view/node';
 
 export default Em.Controller.extend({
   init() {

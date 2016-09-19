@@ -1,7 +1,7 @@
 {
-  "name": "ember-idx-tree",
-  "version": "0.1.1",
-  "description": "Ambitious Tree Component for Ember.js",
+  "name": "ember-tree-view",
+  "version": "0.1.2",
+  "description": "An Tree View Component for Ember.js, forked from indexiatech/ember-idx-tree",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,11 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/indexiatech/ember-idx-tree",
+  "repository": "https://github.com/systembugtj/ember-tree-view",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "license": "ASF2",
+  "license": "MIT",
   "dependencies": {
     "ember-cli-babel": "^5.1.6"
   },
@@ -40,23 +40,19 @@
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-font-awesome": "2.2.0",
-    "ember-idx-utils": "0.2.3",
+    "ember-tree-utils": "0.2.4",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
-    "express": "^4.8.5",
-    "glob": "^4.0.5",
     "loader.js": "^4.0.1"
   },
   "authors": [
-    "Indexia Technologies, ltd."
+    "Indexia Technologies, ltd.",
+    "albert_lee@hotmail.com"
   ],
   "keywords": [
     "ember-addon"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "readmeFilename": "README.md",
-  "_id": "ember-idx-tree@0.1.0",
-  "_from": "ember-idx-tree@*"
+  }
 }

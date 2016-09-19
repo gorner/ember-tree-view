@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
+import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 
 let getProperty = function(obj, prop) {
   if (!obj) {

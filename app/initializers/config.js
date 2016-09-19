@@ -1,8 +1,8 @@
 import Em from 'ember';
-import Config from 'ember-idx-utils/config'
+import Config from 'ember-tree-utils/config'
 
 export default {
-  name: 'ember-idx-tree',
+  name: 'ember-tree-view',
   _config: Config.create(),
   initialize() {
     let config = this._config;

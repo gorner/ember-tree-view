@@ -1,3 +1,3 @@
-import TreeBranchComponent from 'ember-idx-tree/tree-branch';
+import TreeBranchComponent from 'ember-tree-view/tree-branch';
 
 export default TreeBranchComponent;

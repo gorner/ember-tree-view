@@ -1,3 +1,3 @@
-import TreeNodeComponent from 'ember-idx-tree/tree-node';
+import TreeNodeComponent from 'ember-tree-view/tree-node';
 
 export default TreeNodeComponent;

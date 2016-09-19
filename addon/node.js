@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let Node = Ember.Object.extend({
+var Node = Ember.Object.extend({
   children: void 0,
   parent: void 0,
 

@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import StyleBindingsMixin from 'ember-idx-utils/mixins/style-bindings';
-import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
+import StyleBindingsMixin from 'ember-tree-utils/mixins/style-bindings';
+import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 
 /**
  * An icon action of a tree node

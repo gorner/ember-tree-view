@@ -10,7 +10,7 @@ This README outlines the details of collaborating on this Ember addon.
 
 ### With Ember-CLI:
 
-npm install --save-dev ember-idx-tree
+ember install ember-tree-view
 
 Please visit the documentation for installation & usage documentations: http://indexiatech.github.io/ember-idx-tree
 

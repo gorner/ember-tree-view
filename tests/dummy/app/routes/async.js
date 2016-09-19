@@ -1,5 +1,5 @@
 import Em from 'ember';
-import Node from 'ember-idx-tree/node';
+import Node from 'ember-tree-view/node';
 
 export default Em.Route.extend({
   model: function() {
