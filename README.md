@@ -1,4 +1,6 @@
-# Ember-idx-tree
+# ember-tree-view
+
+forked from indexiatech/ember-idx-tree
 
 Ember Idx Tree is a sophisticated tree component for Ember.js,
 
