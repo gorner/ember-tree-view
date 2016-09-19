@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 let Node = Ember.Object.extend({
   children: void 0,
-
   parent: void 0,
 
   addChild(node) {
@@ -15,14 +14,14 @@ let Node = Ember.Object.extend({
   },
 
   createChild(object) {
-    var c, c1;
+    //let c1 = Node.create();
+
     if (!this.get('children')) {
       this.emptyChildren();
     }
-    c = Node.create(object);
+    let c = Node.create(object);
     c.set('parent', this);
     this.get('children').pushObject(c);
-    c1 = Node.create();
     return c;
   },
 
@@ -51,7 +50,7 @@ let Node = Ember.Object.extend({
 
   root: Ember.computed('parent', {
     get() {
-      var node;
+      let node;
       node = this;
       while (node.get('hasParent')) {
         if (!node.get('hasParent')) {
@@ -65,9 +64,9 @@ let Node = Ember.Object.extend({
 
   level: Ember.computed('children.length', {
     get() {
-      var currObj, i;
-      i = 0;
-      currObj = this;
+      let currObj = this;
+      let i = 0;
+
       while (currObj.get('hasParent')) {
         i++;
         currObj = currObj.get('parent');

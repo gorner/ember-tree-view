@@ -1,7 +1,7 @@
-import Em from 'ember';
+import Ember from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
 
-var refreshExpanded = function(node) {
+let refreshExpanded = function(node) {
   var children;
   if (node.get('expanded')) {
     node.set('requestReload', true);
@@ -12,7 +12,7 @@ var refreshExpanded = function(node) {
   }
 };
 
-var expandTree = function(async, node, depth) {
+let expandTree = function(async, node, depth) {
   var c, children, _i, _len, _results;
   if (depth === 0) {
     return;
@@ -49,14 +49,14 @@ var expandTree = function(async, node, depth) {
  *
  * @class Tree
  */
-export default Em.Component.extend(WithConfigMixin, {
+export default Ember.Component.extend(WithConfigMixin, {
   tagName: 'ul',
-  layoutName: 'em-tree',
+  layoutName: 'Ember-tree',
   classNameBindings: ['styleClasses'],
   styleClasses: Ember.computed("", {
     get() {
-      var _ref;
-      return (_ref = this.get('config.tree.classes')) != null ? _ref.join(" ") : void 0;
+      let _ref = this.get('config.tree.classes');
+      return _ref != null ? _ref.join(" ") : "";
     }
   }),
 
@@ -99,12 +99,14 @@ export default Em.Component.extend(WithConfigMixin, {
    * branch being opened
    */
   async: false,
+
   'in-multi-selection': false,
-  'multi-selection': Em.A(),
+  'multi-selection': Ember.A(),
   'selected-icon': 'fa fa-check',
   'unselected-icon': 'fa fa-times',
   'expand-depth': null,
-  expandByDepth: Ember.on('init', Em.observer('expand-depth', 'model', function() {
+
+  expandByDepth: Ember.on('init', Ember.observer('expand-depth', 'model', function() {
     var depth;
     if (!this.get('model')) {
       return;
@@ -120,7 +122,7 @@ export default Em.Component.extend(WithConfigMixin, {
 
   'refresh-expanded': false,
 
-  observeRefreshExpanded: Em.observer('refresh-expanded', function() {
+  observeRefreshExpanded: Ember.observer('refresh-expanded', function() {
     // DO nothing
   })
 });

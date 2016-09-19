@@ -1,22 +1,22 @@
 <span>
 {{#if hasIcon}}
-    <i {{action 'toggle'}} class="{{iconClass}}"></i>
+  <i {{action 'toggle'}} class="{{iconClass}}"></i>
 {{else}}
-    <a {{action 'toggle'}} class="text">*</a>
+  <a {{action 'toggle'}} class="text">*</a>
 {{/if}}
 </span>
 
 {{#if tree.in-multi-selection}}
-    <span class="em-tree-node-multiselection">
-    {{#if multi-selected}}
-        <i {{action "toggleSelection"}} class="{{tree.selected-icon}}"></i>
-    {{else}}
-        <i {{action "toggleSelection"}} class="{{tree.unselected-icon}}"></i>
-    {{/if}}
-    </span>
+  <span class="em-tree-node-multiselection">
+  {{#if multi-selected}}
+      <i {{action "toggleSelection"}} class="{{tree.selected-icon}}"></i>
+  {{else}}
+      <i {{action "toggleSelection"}} class="{{tree.unselected-icon}}"></i>
+  {{/if}}
+  </span>
 {{/if}}
 
-<span {{action "select"}} bind-attr class="{{nodeSelectedClasses}} :title">
+<span {{action "select"}} class="{{nodeSelectedClasses}} title">
 {{model.title}}
 {{#if tree.hovered-actions}}
     <span class="actions">
@@ -28,5 +28,5 @@
 </span>
 
 {{#if expanded}}
-    {{em-tree-branch model=model tree=tree async=async targetObject=targetObject}}
+  {{em-tree-branch model=model tree=tree async=async targetObject=targetObject}}
 {{/if}}

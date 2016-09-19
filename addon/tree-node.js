@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import WithConfigMixin from 'ember-idx-utils/mixins/with-config';
-var getProperty;
 
-var getProperty = function(obj, prop) {
+let getProperty = function(obj, prop) {
   if (!obj) {
     return;
   }
@@ -20,8 +19,38 @@ var getProperty = function(obj, prop) {
  */
 
 export default Ember.Component.extend(WithConfigMixin, {
+  tagName: 'li',
   attributeBindings: ['multi-selected'],
+  classNameBindings: ['styleClasses', 'expandedClasses', 'leafClasses'],
 
+  styleClasses: Ember.computed("", {
+    get() {
+      var _ref;
+      return (_ref = this.get('config.tree.nodeClasses')) != null ? _ref.join(" ") : void 0;
+    }
+  }),
+
+  expandedClasses: Ember.computed('expanded', 'leaf', 'loading', {
+    get() {
+      var _ref, _ref1;
+      if (this.get('expanded')) {
+        return (_ref = this.get('config.tree.nodeOpenClasses')) != null ? _ref.join(" ") : void 0;
+      } else {
+        return (_ref1 = this.get('config.tree.nodeCloseClasses')) != null ? _ref1.join(" ") : void 0;
+      }
+    }
+  }),
+
+  nodeSelectedClasses: Ember.computed('isSelected', {
+    get() {
+      var _ref;
+      if (this.get('isSelected')) {
+        return (_ref = this.get('config.tree.nodeSelectedClasses')) != null ? _ref.join(" ") : void 0;
+      } else {
+        return null;
+      }
+    }
+  }),
   /**
    * The model the tree node view is bound to
    */
@@ -88,38 +117,7 @@ export default Ember.Component.extend(WithConfigMixin, {
     }
   }),
 
-  tagName: 'li',
 
-  classNameBindings: ['styleClasses', 'expandedClasses', 'leafClasses'],
-
-  styleClasses: Ember.computed("", {
-    get() {
-      var _ref;
-      return (_ref = this.get('config.tree.nodeClasses')) != null ? _ref.join(" ") : void 0;
-    }
-  }),
-
-  expandedClasses: Ember.computed('expanded', 'leaf', 'loading', {
-    get() {
-      var _ref, _ref1;
-      if (this.get('expanded')) {
-        return (_ref = this.get('config.tree.nodeOpenClasses')) != null ? _ref.join(" ") : void 0;
-      } else {
-        return (_ref1 = this.get('config.tree.nodeCloseClasses')) != null ? _ref1.join(" ") : void 0;
-      }
-    }
-  }),
-
-  nodeSelectedClasses: Ember.computed('isSelected', {
-    get() {
-      var _ref;
-      if (this.get('isSelected')) {
-        return (_ref = this.get('config.tree.nodeSelectedClasses')) != null ? _ref.join(" ") : void 0;
-      } else {
-        return null;
-      }
-    }
-  }),
 
   /*
    * Observes the 'multi-selected' and put the tree in multi selection mode if true

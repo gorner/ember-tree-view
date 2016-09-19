@@ -1,3 +1,3 @@
-{{#each children}}
-    {{em-tree-node model=this requestReload=this.requestReload tree=tree async=async targetObject=controller.targetObject}}
+{{#each children as |child|}}
+    {{em-tree-node model=child requestReload=requestReload tree=tree async=async targetObject=targetObject}}
 {{/each}}
