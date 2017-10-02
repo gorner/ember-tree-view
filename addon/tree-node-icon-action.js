@@ -68,7 +68,7 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @private
    */
   iconClasses: (function() {
-    var _ref;
+    let _ref;
     return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
   }).property('meta.classes'),
 
@@ -77,7 +77,11 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @property node
    * @public
    */
-  node: Ember.computed.alias('parentView.node'),
+  node: Ember.computed("", {
+    get() {
+      return this.get('parentView.node');
+    }
+  }).volatile(),
 
   /**
    * Invoked when the action is clicked

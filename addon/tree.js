@@ -29,7 +29,7 @@ let expandTree = function(async, node, depth) {
     })(this));
   } else {
     if (async) {
-
+      // Do nothing.
     } else {
       if (((!children) || children.get('length') === 0) || depth === 0) {
         return;

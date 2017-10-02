@@ -101,12 +101,20 @@ export default Ember.Component.extend(WithConfigMixin, {
    * Usually that means the node is defined asynchronously and its children are currently being loaded
    */
   loading: false,
-  branch: Ember.computed.alias('parentView'),
+  branch: Ember.computed("", {
+    get() {
+      return this.get('parentView');
+    }
+  }).volatile(),
 
   /**
    * true if the loading mode of the node's children should be async
    */
-  async: Ember.computed.alias('parentView.async'),
+  async: Ember.computed("", {
+    get() {
+      return this.get('parentView.node');
+    }
+  }).volatile(),
 
   /**
    * true if this is a leaf node, meaning it has no children
