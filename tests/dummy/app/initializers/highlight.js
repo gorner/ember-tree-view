@@ -1,3 +1,4 @@
+/* global $, hljs */
 import Em from 'ember';
 
 export default {
