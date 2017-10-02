@@ -18,7 +18,6 @@
     "findWithAssert",
     "wait",
     "DS",
-    "hljs",
     "andThen",
     "currentURL",
     "currentPath",

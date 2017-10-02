@@ -1,57 +1,53 @@
 {
   "name": "ember-tree-view",
-  "version": "0.1.6",
-  "description": "An Tree View Component for Ember.js, forked from indexiatech/ember-idx-tree",
+  "version": "0.0.0",
+  "description": "The default blueprint for ember-cli addons.",
+  "keywords": [
+    "ember-addon"
+  ],
+  "license": "MIT",
+  "author": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
+  "repository": "",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/systembugtj/ember-tree-view",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "license": "MIT",
   "dependencies": {
-    "ember-cli-babel": "^5.1.6"
+    "ember-cli-babel": "^6.3.0",
+    "ember-tree-utils": "^0.3.0"
   },
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.2",
-    "broccoli-merge-trees": "^1.1.4",
-    "broccoli-static-compiler": "^0.2.2",
-    "ember-ajax": "^2.0.1",
-    "ember-cli": "2.7.0",
-    "ember-cli-app-version": "^1.0.0",
-    "ember-cli-dependency-checker": "^1.2.0",
-    "ember-cli-htmlbars": "^1.0.3",
-    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
-    "ember-cli-inject-live-reload": "^1.4.0",
-    "ember-cli-jshint": "^1.0.0",
-    "ember-cli-qunit": "^2.0.0",
-    "ember-cli-release": "^0.2.9",
+    "bootstrap-sass": "^3.3.7",
+    "broccoli-asset-rev": "^2.4.5",
+    "ember-ajax": "^3.0.0",
+    "ember-bootstrap": "^1.0.0-rc.2",
+    "ember-cli": "~2.15.1",
+    "ember-cli-dependency-checker": "^2.0.0",
+    "ember-cli-eslint": "^4.0.0",
+    "ember-cli-htmlbars": "^2.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^1.0.0",
+    "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-qunit": "^4.0.0",
+    "ember-cli-sass": "^7.0.0",
+    "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
-    "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "2.8.0",
-    "ember-disable-prototype-extensions": "^1.1.0",
-    "ember-export-application-global": "^1.0.5",
-    "ember-font-awesome": "2.2.0",
-    "ember-load-initializers": "^0.5.1",
-    "ember-resolver": "^2.0.3",
-    "ember-tree-utils": "0.2.4",
-    "loader.js": "^4.0.1"
+    "ember-disable-prototype-extensions": "^1.1.2",
+    "ember-export-application-global": "^2.0.0",
+    "ember-load-initializers": "^1.0.0",
+    "ember-resolver": "^4.0.0",
+    "ember-source": "~2.15.0",
+    "ember-welcome-page": "^3.0.0",
+    "loader.js": "^4.2.3"
   },
-  "authors": [
-    "Indexia Technologies, ltd.",
-    "albert_lee@hotmail.com"
-  ],
-  "keywords": [
-    "ember-addon"
-  ],
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
+  },
   "ember-addon": {
     "configPath": "tests/dummy/config"
   }

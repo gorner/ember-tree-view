@@ -4,6 +4,8 @@ module.exports = {
   },
 
   afterInstall: function() {
-    return this.addAddonToProject('ember-font-awesome'); 
+    return this.addAddonToProject('ember-font-awesome').then(() => {
+      return this.addAddonToProject('ember-bootstrap')
+    });
   }
 };

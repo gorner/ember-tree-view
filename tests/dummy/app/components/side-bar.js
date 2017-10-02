@@ -1,9 +1,7 @@
-import Em from 'ember';
+import Ember from 'ember';
 
-export default Em.Controller.extend({
-  needs: ['application'],
-
-  model: [
+export default Ember.Component.extend({
+  items: [
     {route: 'gettingstarted', text: 'Getting Started'},
     {route: 'simple', text: 'Simple'},
     {route: 'emberdata', text: 'Ember Data'},
@@ -13,5 +11,4 @@ export default Em.Controller.extend({
     {route: 'multiselection', text: 'Multi Selection'},
     {route: 'noderefresh', text: 'Node Refresh'}
   ]
-
 });
