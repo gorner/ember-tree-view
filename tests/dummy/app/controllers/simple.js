@@ -3,7 +3,7 @@ import TreeNode from 'ember-tree-view/node';
 
 export default Em.Controller.extend({
   init() {
-    var family, gaya, josh, lud, moses, suz, verdi;
+    var family, lud, suz;
     family = TreeNode.create({
       title: 'Family'
     });
@@ -13,16 +13,16 @@ export default Em.Controller.extend({
     lud = family.createChild({
       title: 'Luda'
     });
-    josh = suz.createChild({
+    suz.createChild({
       title: 'Josh'
     });
-    moses = suz.createChild({
+    suz.createChild({
       title: 'Moses'
     });
-    verdi = lud.createChild({
+    lud.createChild({
       title: 'Verdi'
     });
-    gaya = lud.createChild({
+    lud.createChild({
       title: 'Gaya'
     });
     return this.set('model', family);

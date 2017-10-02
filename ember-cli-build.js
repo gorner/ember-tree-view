@@ -13,8 +13,6 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import('bower_components/bootstrap/dist/css/bootstrap-theme.css.map' );
-  app.import('bower_components/bootstrap/dist/css/bootstrap.css');
   app.import('bower_components/highlightjs/highlight.pack.js');
   app.import('bower_components/highlightjs/styles/tomorrow.css');
   /*

@@ -18,17 +18,17 @@ export default Em.Controller.extend({
     }
   ],
   init: function() {
-    var family, lud, suz;
+    var family;
     family = TreeNode.create({
       title: 'Family'
     }, {
       nodeType: 'family'
     });
-    suz = family.createChild({
+    family.createChild({
       title: 'Susan',
       nodeType: 'male'
     });
-    lud = family.createChild({
+    family.createChild({
       title: 'Luda',
       nodeType: 'female'
     });
