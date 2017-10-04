@@ -6,12 +6,19 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name": "Albert Li",
+    "email": "albert_lee@hotmail.com",
+    "url": "https://github.com/systembugtj/ember-tree-view"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/systembugtj/ember-tree-view"
+  },
   "scripts": {
     "build": "ember build",
     "start": "ember server",
