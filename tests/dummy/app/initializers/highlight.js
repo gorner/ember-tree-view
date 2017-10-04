@@ -1,5 +1,6 @@
-/* global $, hljs */
+/* global $ */
 import Em from 'ember';
+import hightlightjs from "highlightjs";
 
 export default {
   name: 'hightlightjs',
@@ -9,7 +10,7 @@ export default {
         this._super();
         return Em.run.next(this, function() {
           return $('pre code').each(function(i, e) {
-            return hljs.highlightBlock(e);
+            return hightlightjs.highlightBlock(e);
           });
         });
       }

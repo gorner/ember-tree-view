@@ -1,6 +1,0 @@
-{
-  "name": "ember-tree-view",
-  "dependencies": {
-    "highlightjs": "^9.6.0"
-  }
-}
