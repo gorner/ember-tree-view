@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import { computed } from '@ember/object';
 import { tryInvoke } from '@ember/utils';
-import { on } from '@ember/object/evented';
 import { observer } from '@ember/object';
 
 let getProperty = function(obj, prop) {

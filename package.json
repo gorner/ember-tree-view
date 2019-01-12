@@ -1,7 +1,7 @@
 {
   "name": "ember-tree-view",
-  "version": "0.1.8",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "3.7.0",
+  "description": "Ember Tree View addon.",
   "keywords": [
     "ember-addon"
   ],
