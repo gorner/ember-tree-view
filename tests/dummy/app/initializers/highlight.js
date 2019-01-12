@@ -1,17 +1,14 @@
-/* global $ */
-import Em from 'ember';
-import hightlightjs from "highlightjs";
+import Route from '@ember/routing/route';
+import { next } from "@ember/runloop";
 
 export default {
   name: 'hightlightjs',
   initialize: function() {
-    return Em.Route.reopen({
+    return Route.reopen({
       renderTemplate: function() {
-        this._super();
-        return Em.run.next(this, function() {
-          return $('pre code').each(function(i, e) {
-            return hightlightjs.highlightBlock(e);
-          });
+        this._super(...arguments);
+        return next(this, function() {
+
         });
       }
     });

@@ -1,8 +1,8 @@
-import Ember from "ember";
+import Controller from "@ember/controller";
+import { computed } from "@ember/object";
 
-export default Ember.Controller.extend({
-  multi: Ember.A(),
-  multiNames: Ember.computed('multi.length', {
+export default Controller.extend({
+  multiNames: computed('multi.length', {
     get() {
       var s;
       s = "";
@@ -11,5 +11,9 @@ export default Ember.Controller.extend({
       });
       return s;
     }
-  })
+  }),
+  init() {
+    this._super(...arguments);
+    this.set("multi", []);
+  }
 });

@@ -1,9 +1,10 @@
-import Em from "ember";
+import Controller from "@ember/controller";
 import TreeNode from 'ember-tree-view/node';
 
-export default Em.Controller.extend({
+export default Controller.extend({
   init() {
-    var family, lud, suz;
+    this._super(...arguments);
+    let family, lud, suz;
     family = TreeNode.create({
       title: 'Family'
     });
@@ -28,7 +29,7 @@ export default Em.Controller.extend({
     return this.set('model', family);
   },
   actions: {
-    expand: function() {
+    expand() {
       this.get('selected').toggleProperty('expanded');
       return null;
     }

@@ -6,8 +6,8 @@ module.exports = function(defaults) {
 
   let app = new EmberAddon(defaults, {
     'ember-bootstrap': {
-      bootstrapVersion: 3,
-      importBootstrapFont: true,
+      bootstrapVersion: 4,
+      importBootstrapFont: false,
       importBootstrapCSS: false
     }
   });

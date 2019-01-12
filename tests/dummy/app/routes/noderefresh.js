@@ -1,7 +1,7 @@
-import Em from 'ember';
+import Route from '@ember/routing/route';
 import TreeNode from 'ember-tree-view/node';
 
-export default Em.Route.extend({
+export default Route.extend({
   model: function() {
     var root;
     root = TreeNode.create({

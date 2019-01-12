@@ -1,7 +1,8 @@
 <h1>Simple Tree</h1>
 
 <p>
-  The simplest form of the tree component is to build a tree of nodes ahead and assign the root node to the <i>\{{em-tree}}</i> tag.
+  The simplest form of the tree component is to build a tree of nodes ahead and assign the root node to the <i>\{{em-tree}}</i>
+  tag.
 </p>
 
 <p>
@@ -14,10 +15,10 @@
 <h2>Demo</h2> {{em-tree model=model selected=selected}}
 
 {{#if selected}}
-  Selected node is: {{selected.title}}
-  <button {{action 'expand'}}>toggle expand</button>
+Selected node is: {{selected.title}}
+<button {{action 'expand'}}>toggle expand</button>
 {{else}}
-  Select a node by clicking on it
+Select a node by clicking on it
 {{/if}}
 <h2>Markup</h2>
 

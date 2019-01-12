@@ -1,7 +1,9 @@
-import Ember from 'ember';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { observer } from '@ember/object';
 
-let refreshExpanded = function(node) {
+let refreshExpanded = (node) => {
   var children;
   if (node.get('expanded')) {
     node.set('requestReload', true);
@@ -12,7 +14,7 @@ let refreshExpanded = function(node) {
   }
 };
 
-let expandTree = function(async, node, depth) {
+let expandTree = (async, node, depth) => {
   var c, children, _i, _len, _results;
   if (depth === 0) {
     return;
@@ -49,16 +51,21 @@ let expandTree = function(async, node, depth) {
  *
  * @class Tree
  */
-export default Ember.Component.extend(WithConfigMixin, {
+export default Component.extend(WithConfigMixin, {
   tagName: 'ul',
   layoutName: 'Ember-tree',
   classNameBindings: ['styleClasses'],
-  styleClasses: Ember.computed("", {
+  styleClasses: computed("", {
     get() {
       let _ref = this.get('config.tree.classes');
       return _ref != null ? _ref.join(" ") : "";
     }
   }),
+
+  init() {
+    this._super();
+    this.set("multi-selection", [])
+  },
 
   /*
    * An array that contains the hovered actions to be triggered per node
@@ -101,28 +108,31 @@ export default Ember.Component.extend(WithConfigMixin, {
   async: false,
 
   'in-multi-selection': false,
-  'multi-selection': Ember.A(),
+  'multi-selection': undefined,
   'selected-icon': 'fa fa-check',
   'unselected-icon': 'fa fa-times',
   'expand-depth': null,
 
-  expandByDepth: Ember.on('init', Ember.observer('expand-depth', 'model', function() {
-    var depth;
-    if (!this.get('model')) {
-      return;
-    }
-    if (this.get('expand-depth')) {
-      depth = parseInt(this.get('expand-depth'));
-      if (depth === 0) {
+  didInsertElement() {
+    observer('expand-depth', 'model', () => {
+      var depth;
+      if (!this.get('model')) {
         return;
       }
-      return expandTree(this.get('async'), this.get('model'), depth);
-    }
-  })),
+      if (this.get('expand-depth')) {
+        depth = parseInt(this.get('expand-depth'));
+        if (depth === 0) {
+          return;
+        }
+        return expandTree(this.get('async'), this.get('model'), depth);
+      }
+    });
+
+  },
 
   'refresh-expanded': false,
 
-  observeRefreshExpanded: Ember.observer('refresh-expanded', function() {
+  observeRefreshExpanded: observer('refresh-expanded', function() {
     // DO nothing
   })
 });

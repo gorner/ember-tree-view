@@ -1,13 +1,13 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import StyleBindingsMixin from 'ember-tree-utils/mixins/style-bindings';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
-
+import { computed } from '@ember/object';
 /**
  * An icon action of a tree node
  * @class TreeNodeIconAction
  */
 
-export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
+export default Component.extend(WithConfigMixin, StyleBindingsMixin, {
   attributeBindings: ['stickyMode:sticky'],
 
   /**
@@ -31,7 +31,7 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @property visibility
    * @private
    */
-  visibility: Ember.computed("sticky", {
+  visibility: computed("sticky", {
     get() {
       if (this.get('sticky')) {
         return 'visible';
@@ -47,13 +47,15 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @public
    */
   sticky: false,
-  stickyMode: (function() {
-    if (this.get('sticky')) {
-      return 'true';
-    } else {
-      return void 0;
+  stickyMode: computed("sticky",{
+    get() {
+      if (this.get('sticky')) {
+        return 'true';
+      } else {
+        return void 0;
+      }
     }
-  }).property('sticky'),
+  }),
 
   /**
    * Binds the specified css classes
@@ -62,22 +64,31 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    */
   classNameBindings: ['iconClasses'],
 
+  init() {
+    this._super();
+    this.on("click", () => {
+      this.invoke();
+    });
+  },
+
   /**
    * Set the given array of classes
    * @property iconClasses
    * @private
    */
-  iconClasses: (function() {
-    let _ref;
-    return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
-  }).property('meta.classes'),
+  iconClasses: computed("meta.classes", {
+    get() {
+      let _ref;
+      return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
+    }
+  }),
 
   /**
    * An alias to the node model of this action
    * @property node
    * @public
    */
-  node: Ember.computed("", {
+  node: computed("", {
     get() {
       return this.get('parentView.node');
     }
@@ -87,7 +98,7 @@ export default Ember.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * Invoked when the action is clicked
    * @method invokde
    */
-  invoked: (function() {
-    return this.get('parentView.targetObject').send(this.get('meta.action'), this);
-  }).on('click')
+  invoke() {
+    return this.get('parentView.target').send(this.get('meta.action'), this);
+  }
 });

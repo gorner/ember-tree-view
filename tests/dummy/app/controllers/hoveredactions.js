@@ -1,25 +1,28 @@
-import Em from "ember";
+import Controller from '@ember/controller';
 import TreeNode from 'ember-tree-view/node';
 
-export default Em.Controller.extend({
+export default Controller.extend({
   message: void 0,
-  actionsMeta: [
-    {
-      classes: ['fa fa-eye'],
-      action: 'eye',
-      types: ['male']
-    }, {
-      classes: ['fa fa-edit'],
-      action: 'edit',
-      types: ['female']
-    }, {
-      classes: ['fa fa-trash-o'],
-      action: 'delete'
-    }
-  ],
-  init: function() {
-    var family;
-    family = TreeNode.create({
+
+  init() {
+    this._super(...arguments);
+
+    this.set("actionsMeta", [
+      {
+        classes: ['fa fa-eye'],
+        action: 'eye',
+        types: ['male']
+      }, {
+        classes: ['fa fa-edit'],
+        action: 'edit',
+        types: ['female']
+      }, {
+        classes: ['fa fa-trash-o'],
+        action: 'delete'
+      }
+    ]);
+
+    let family = TreeNode.create({
       title: 'Family'
     }, {
       nodeType: 'family'

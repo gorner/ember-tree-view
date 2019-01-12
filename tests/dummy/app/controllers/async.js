@@ -1,27 +1,37 @@
-import Em from "ember";
+import Controller from '@ember/controller';
+import { later } from "@ember/runloop";
 
-export default Em.Controller.extend({
+export default Controller.extend({
   expandDepth: 1,
-  iconSet: {
-    type0: {
-      nodeOpenIconClasses: ['fa-li', 'fa', 'fa-minus-square-o'],
-      nodeCloseIconClasses: ['fa-li', 'fa', 'fa-plus-square-o']
-    },
-    type1: {
-      nodeOpenIconClasses: ['fa-li', 'fa', 'fa-tag'],
-      nodeCloseIconClasses: ['fa-li', 'fa', 'fa-tags']
-    }
+  iconSet: undefined,
+  words: undefined,
+
+  init() {
+    this._super(...arguments);
+    this.set("iconSet",  {
+      type0: {
+        nodeOpenIconClasses: ['fa-li', 'fa', 'fa-minus-square-o'],
+        nodeCloseIconClasses: ['fa-li', 'fa', 'fa-plus-square-o']
+      },
+      type1: {
+        nodeOpenIconClasses: ['fa-li', 'fa', 'fa-tag'],
+        nodeCloseIconClasses: ['fa-li', 'fa', 'fa-tags']
+      }
+    });
+
+    this.set("words", ['Foo', 'Bar', 'Baz', 'Qux']);
   },
-  words: ['Foo', 'Bar', 'Baz', 'Qux'],
+
   randomWord: function() {
     return this.words[Math.floor(Math.random() * this.words.length)];
   },
+
   actions: {
     anotherLevel: function() {
       return this.set('expandDepth', this.get('expandDepth') + 1);
     },
     getChildren: function(node, c) {
-      return Em.run.later(this, function() {
+      return later(this, function() {
         var i, o, _results;
         c.set('loading', false);
         o = Math.floor(Math.random() * this.words.length) + 1;

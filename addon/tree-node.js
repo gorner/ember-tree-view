@@ -1,13 +1,16 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
+import { computed } from '@ember/object';
+import { tryInvoke } from '@ember/utils';
+import { on } from '@ember/object/evented';
+import { observer } from '@ember/object';
 
 let getProperty = function(obj, prop) {
   if (!obj) {
     return;
   }
-  if (Ember.typeOf(obj) === 'instance' || Ember.canInvoke(obj, 'get')) {
-    return obj.get(prop);
-  } else {
+  let result = tryInvoke(obj, 'get');
+  if (!result) {
     return obj[prop];
   }
 };
@@ -18,19 +21,19 @@ let getProperty = function(obj, prop) {
  * @class TreeNode
  */
 
-export default Ember.Component.extend(WithConfigMixin, {
+export default Component.extend(WithConfigMixin, {
   tagName: 'li',
   attributeBindings: ['multi-selected'],
   classNameBindings: ['styleClasses', 'expandedClasses', 'leafClasses'],
 
-  styleClasses: Ember.computed("", {
+  styleClasses: computed("", {
     get() {
       var _ref;
       return (_ref = this.get('config.tree.nodeClasses')) != null ? _ref.join(" ") : void 0;
     }
   }),
 
-  expandedClasses: Ember.computed('expanded', 'leaf', 'loading', {
+  expandedClasses: computed('expanded', 'leaf', 'loading', {
     get() {
       var _ref, _ref1;
       if (this.get('expanded')) {
@@ -41,7 +44,7 @@ export default Ember.Component.extend(WithConfigMixin, {
     }
   }),
 
-  nodeSelectedClasses: Ember.computed('isSelected', {
+  nodeSelectedClasses: computed('isSelected', {
     get() {
       var _ref;
       if (this.get('isSelected')) {
@@ -64,18 +67,18 @@ export default Ember.Component.extend(WithConfigMixin, {
   /**
    * A reference to the root model
    */
-  rootModel: Ember.computed.alias('tree.model'),
+  rootModel: computed.alias('tree.model'),
 
   /**
    * True if the node is currently expanded, meaning its children are visible.
    */
-  expanded: Ember.computed.alias('model.expanded'),
+  expanded: computed.alias('model.expanded'),
 
   /**
    * True if this node view is currently checked
    * This is only relevant if the tree configured to support multi selection
    */
-  'multi-selected': Ember.computed.alias('model.selected'),
+  'multi-selected': computed.alias('model.selected'),
 
   /**
    * True if should render an icon tag for this node view
@@ -90,7 +93,7 @@ export default Ember.Component.extend(WithConfigMixin, {
   /**
    * True if this node is currently single selected
    */
-  isSelected: Ember.computed('tree.selected', {
+  isSelected: computed('tree.selected', {
     get() {
       return this.get('tree.selected') === this.get('model');
     }
@@ -101,7 +104,7 @@ export default Ember.Component.extend(WithConfigMixin, {
    * Usually that means the node is defined asynchronously and its children are currently being loaded
    */
   loading: false,
-  branch: Ember.computed("", {
+  branch: computed("", {
     get() {
       return this.get('parentView');
     }
@@ -110,7 +113,7 @@ export default Ember.Component.extend(WithConfigMixin, {
   /**
    * true if the loading mode of the node's children should be async
    */
-  async: Ember.computed("", {
+  async: computed("", {
     get() {
       return this.get('parentView.node');
     }
@@ -119,26 +122,13 @@ export default Ember.Component.extend(WithConfigMixin, {
   /**
    * true if this is a leaf node, meaning it has no children
    */
-  leaf: Ember.computed('model.children.length', {
+  leaf: computed('model.children.length', {
     get() {
       return !this.get('model.children') || this.get('model.children.length') === 0;
     }
   }),
 
-
-
-  /*
-   * Observes the 'multi-selected' and put the tree in multi selection mode if true
-   */
-  addMultiSelectionToTreeSelection: Ember.on("init", Ember.observer('multi-selected', function() {
-    if (this.get('multi-selected')) {
-      return this.get('tree.multi-selection').pushObject(this.get('model'));
-    } else {
-      return this.get('tree.multi-selection').removeObject(this.get('model'));
-    }
-  })),
-
-  iconClass: Ember.computed('expanded', 'leaf', 'loading', {
+  iconClass: computed('expanded', 'leaf', 'loading', {
     get() {
       var icons;
       icons = [];
@@ -165,7 +155,7 @@ export default Ember.Component.extend(WithConfigMixin, {
     }
   }),
 
-  leafClasses: Ember.computed("leaf", {
+  leafClasses: computed("leaf", {
     get() {
       var _ref;
       if (this.get('leaf')) {
@@ -174,7 +164,7 @@ export default Ember.Component.extend(WithConfigMixin, {
     }
   }),
 
-  hoveredActions: Ember.computed('tree.hoveredActions', 'model.nodeType', {
+  hoveredActions: computed('tree.hoveredActions', 'model.nodeType', {
     get() {
       var globalHoveredActions, nodeType, types;
       globalHoveredActions = this.get('tree.hovered-actions');
@@ -197,16 +187,24 @@ export default Ember.Component.extend(WithConfigMixin, {
     }
   }),
 
-  /*
-   * Observes the 'model.requestReload' property, if set to true, the node's children will get reloaded
-   */
-  observeRequestReload: Ember.on("init", Ember.observer('model.requestReload', function() {
-    if (this.get('model.requestReload')) {
-      this.set('model.requestReload', false);
-      this.send('reloadChildren');
-      return this.set('model.expanded', true);
-    }
-  })),
+  init() {
+    this._super(...arguments);
+
+    observer('multi-selected', function() {
+      if (this.get('multi-selected')) {
+        return this.get('tree.multi-selection').pushObject(this.get('model'));
+      } else {
+        return this.get('tree.multi-selection').removeObject(this.get('model'));
+      }
+    });
+    observer('model.requestReload', () => {
+      if (this.get('model.requestReload')) {
+        this.set('model.requestReload', false);
+        this.send('reloadChildren');
+        return this.set('model.expanded', true);
+      }
+    });
+  },
 
   /*
    * Get the icon for the model, if set by the tree icon's metadata, otherwise use defaults configured by the tree level.
@@ -262,7 +260,7 @@ export default Ember.Component.extend(WithConfigMixin, {
    * The name of the method to invoke in async mode to get the children of a node when expanded
    */
   children: 'getChildren',
-  loadingHasChanged: Ember.observer("loading", function() {
+  loadingHasChanged: observer("loading", function() {
     if (!this.get('loading')) {
       return this.toggleProperty('expanded');
     }

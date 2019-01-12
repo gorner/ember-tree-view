@@ -1,17 +1,22 @@
 import Em from "ember";
 
 export default Em.Controller.extend({
-  words: ['Foo', 'Bar', 'Baz', 'Qux'],
-  randomWord: function() {
+  init() {
+    this._super(...arguments);
+    this.set("words", ['Foo', 'Bar', 'Baz', 'Qux'],)
+  },
+
+  randomWord() {
     return this.words[Math.floor(Math.random() * this.words.length)];
   },
+
   actions: {
-    addAndRefresh: function() {
+    addAndRefresh() {
       return this.get('selected').createChild({
         title: this.randomWord()
       });
     },
-    getChildren: function(node, c) {
+    getChildren(node, c) {
       return Em.run.later(this, function() {
         var i, o, _results;
         c.set('loading', false);

@@ -1,6 +1,6 @@
-import Em from 'ember';
+import Route from '@ember/routing/route';
 
-export default Em.Route.extend({
+export default Route.extend({
   model: function() {
     return this.store.find('tag', 1);
   }

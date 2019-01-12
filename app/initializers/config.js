@@ -1,4 +1,4 @@
-import Em from 'ember';
+import Em from '@ember/engine';
 import Config from 'ember-tree-utils/config'
 
 export default {
