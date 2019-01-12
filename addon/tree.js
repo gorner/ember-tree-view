@@ -3,8 +3,8 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 
-let refreshExpanded = (node) => {
-  var children;
+const refreshExpanded = (node) => {
+  let children;
   if (node.get('expanded')) {
     node.set('requestReload', true);
   }
@@ -14,17 +14,17 @@ let refreshExpanded = (node) => {
   }
 };
 
-let expandTree = (async, node, depth) => {
-  var c, children, _i, _len, _results;
+const expandTree = (async, node, depth) => {
+  let c, children, _i, _len, _results;
   if (depth === 0) {
     return;
   }
   node.set('requestReload', true);
   children = node.get('children');
   if (children && "function" === typeof children.then) {
-    return children.then((function() {
-      return function(loadedChildren) {
-        return loadedChildren.forEach(function(c) {
+    return children.then((() => {
+      return (loadedChildren) => {
+        return loadedChildren.forEach((c) => {
           return expandTree(async, c, depth - 1);
         });
       };
@@ -53,7 +53,7 @@ let expandTree = (async, node, depth) => {
  */
 export default Component.extend(WithConfigMixin, {
   tagName: 'ul',
-  layoutName: 'Ember-tree',
+  layoutName: 'em-tree',
   classNameBindings: ['styleClasses'],
   styleClasses: computed("", {
     get() {
@@ -65,6 +65,19 @@ export default Component.extend(WithConfigMixin, {
   init() {
     this._super();
     this.set("multi-selection", [])
+    observer('expand-depth', 'model', () => {
+      var depth;
+      if (!this.get('model')) {
+        return;
+      }
+      if (this.get('expand-depth')) {
+        depth = parseInt(this.get('expand-depth'));
+        if (depth === 0) {
+          return;
+        }
+        return expandTree(this.get('async'), this.get('model'), depth);
+      }
+    });
   },
 
   /*
@@ -112,24 +125,6 @@ export default Component.extend(WithConfigMixin, {
   'selected-icon': 'fa fa-check',
   'unselected-icon': 'fa fa-times',
   'expand-depth': null,
-
-  didInsertElement() {
-    observer('expand-depth', 'model', () => {
-      var depth;
-      if (!this.get('model')) {
-        return;
-      }
-      if (this.get('expand-depth')) {
-        depth = parseInt(this.get('expand-depth'));
-        if (depth === 0) {
-          return;
-        }
-        return expandTree(this.get('async'), this.get('model'), depth);
-      }
-    });
-
-  },
-
   'refresh-expanded': false,
 
   observeRefreshExpanded: observer('refresh-expanded', function() {

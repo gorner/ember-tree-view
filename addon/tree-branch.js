@@ -28,7 +28,7 @@ export default Component.extend(WithConfigMixin, {
    */
   async: false,
   tagName: 'ul',
-  layoutName: 'ember-tree-branch',
+  layoutName: 'em-tree-branch',
   classNameBindings: ['styleClasses'],
   styleClasses: computed("", {
     get() {

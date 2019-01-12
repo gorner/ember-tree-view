@@ -12,14 +12,17 @@
   </ol>
 </p>
 
-<h2>Demo</h2> {{em-tree model=model selected=selected}}
+<h2>Demo</h2>
+
+{{em-tree model=model selected=selected}}
 
 {{#if selected}}
-Selected node is: {{selected.title}}
-<button {{action 'expand'}}>toggle expand</button>
+  Selected node is: {{selected.title}}
+  <button {{action 'expand'}}>toggle expand</button>
 {{else}}
-Select a node by clicking on it
+  Select a node by clicking on it
 {{/if}}
+
 <h2>Markup</h2>
 
 <h2>Code</h2>

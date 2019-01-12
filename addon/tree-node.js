@@ -6,12 +6,13 @@ import { observer } from '@ember/object';
 
 let getProperty = function(obj, prop) {
   if (!obj) {
-    return;
+    return undefined;
   }
   let result = tryInvoke(obj, 'get');
   if (!result) {
     return obj[prop];
   }
+  return result;
 };
 
 /**
@@ -171,10 +172,11 @@ export default Component.extend(WithConfigMixin, {
       types = [];
       if (nodeType) {
         globalHoveredActions.forEach(function(ha) {
-          if (!getProperty(ha, 'types') || !getProperty(ha, 'types').length) {
+          let property = getProperty(ha, 'types');
+          if (!property || !property.length) {
             return types.push(ha);
           } else {
-            if (getProperty(ha, 'types').contains(nodeType)) {
+            if (property.includes(nodeType)) {
               return types.push(ha);
             }
           }
