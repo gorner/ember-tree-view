@@ -90,7 +90,7 @@ export default Component.extend(WithConfigMixin, {
    *    {classes: ['fa fa-trash-o'], action: 'delete'}
    * ]
    */
-  'hovered-actions': void 0,
+  'hovered-actions': undefined,
 
   /*
    * An object that contains meta info about each node type's icons
@@ -106,13 +106,13 @@ export default Component.extend(WithConfigMixin, {
    *    }
    *    }
    */
-  'icons-per-type': void 0,
+  'icons-per-type': undefined,
 
   /**
    * The model to render as the root node of the tree
    * this property is expected to be defined by the user
    */
-  model: void 0,
+  model: undefined,
 
   /**
    * True if node's children should be loaded asynchronously
