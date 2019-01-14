@@ -19,7 +19,7 @@ export default Component.extend(WithConfigMixin, {
   /**
    * A list of {{#crossLink "TreeNode"}}nodes{{/crossLink}} instances.
    */
-  children: computed.alias('model.children'),
+  items: computed.alias('model.children'),
 
   /**
    * True if node's children should be loaded asynchronously
@@ -35,5 +35,12 @@ export default Component.extend(WithConfigMixin, {
       const _ref = this.get('config.tree.branchClasses');
       return _ref != null ? _ref.join(" ") : void 0;
     }
-  })
+  }),
+
+  actions: {
+    requestChildren() {
+      // resend event
+      this.children(...arguments);
+    }
+  }
 });

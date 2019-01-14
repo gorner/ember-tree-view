@@ -9,8 +9,6 @@ Tag = DS.Model.extend({
   parent: DS.belongsTo('tag', {async: true, inverse: 'children'})
 });
 
-
-
 Tag.reopenClass({
   FIXTURES: [
     {

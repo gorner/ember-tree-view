@@ -1,8 +1,8 @@
 <span>
   {{#if hasIcon}}
-    <i {{action 'toggle'}} class="{{iconClass}}"></i>
+    <i {{action "toggle"}} class="{{iconClass}}"></i>
   {{else}}
-    <a {{action 'toggle'}} class="text">*</a>
+    <a {{action "toggle"}} class="text">*</a>
   {{/if}}
 </span>
 
@@ -28,5 +28,5 @@
 </span>
 
 {{#if expanded}}
-  {{em-tree-branch model=model tree=tree async=async target=target}}
+  {{em-tree-branch model=model tree=tree async=async target=target children=(action "requestChildren")}}
 {{/if}}

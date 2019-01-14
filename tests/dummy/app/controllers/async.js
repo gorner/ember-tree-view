@@ -3,8 +3,6 @@ import { later } from "@ember/runloop";
 
 export default Controller.extend({
   expandDepth: 1,
-  iconSet: undefined,
-  words: undefined,
 
   init() {
     this._super(...arguments);
@@ -22,15 +20,15 @@ export default Controller.extend({
     this.set("words", ['Foo', 'Bar', 'Baz', 'Qux']);
   },
 
-  randomWord: function() {
+  randomWord() {
     return this.words[Math.floor(Math.random() * this.words.length)];
   },
 
   actions: {
-    anotherLevel: function() {
+    anotherLevel() {
       return this.set('expandDepth', this.get('expandDepth') + 1);
     },
-    getChildren: function(node, c) {
+    getChildren(node, c) {
       return later(this, function() {
         var i, o, _results;
         c.set('loading', false);

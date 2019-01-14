@@ -6,7 +6,7 @@ export default Component.extend({
     this.set("items",  [
       {route: 'gettingstarted', text: 'Getting Started'},
       {route: 'simple', text: 'Simple'},
-      {route: 'emberdata', text: 'Ember Data'},
+      //{route: 'emberdata', text: 'Ember Data'},
       {route: 'async', text: 'Async'},
       {route: 'hoveredactions', text: 'Hovered Actions'},
       {route: 'expand', text: 'Expand'},

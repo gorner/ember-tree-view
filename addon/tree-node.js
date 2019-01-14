@@ -130,8 +130,7 @@ export default Component.extend(WithConfigMixin, {
 
   iconClass: computed('expanded', 'leaf', 'loading', {
     get() {
-      var icons;
-      icons = [];
+      let icons = [];
       if (this.get('async')) {
         if (this.get('loading')) {
           icons = icons.concat(this.iconFromModelOrDefault('nodeLoadingIconClasses'));
@@ -228,7 +227,7 @@ export default Component.extend(WithConfigMixin, {
     toggle() {
       if (this.get('async') && !this.get('expanded') && !this.get('model.children')) {
         this.set('loading', true);
-        return this.sendAction('children', this.get('model'), this);
+        return this.children(this.get('model'), this);
       } else {
         return this.toggleProperty('expanded');
       }
@@ -239,7 +238,7 @@ export default Component.extend(WithConfigMixin, {
      */
     reloadChildren() {
       if (this.get('async')) {
-        return this.sendAction('children', this.get('model'), this);
+        return this.children(this.get('model'), this);
       }
     },
     select() {
@@ -254,13 +253,15 @@ export default Component.extend(WithConfigMixin, {
       } else {
         return this.set('multi-selected', 'true');
       }
+    },
+    requestChildren() {
+      this.children(...arguments);
     }
   },
 
   /*
    * The name of the method to invoke in async mode to get the children of a node when expanded
    */
-  children: 'getChildren',
   loadingHasChanged: observer("loading", function() {
     if (!this.get('loading')) {
       return this.toggleProperty('expanded');

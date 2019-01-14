@@ -130,5 +130,12 @@ export default Component.extend(WithConfigMixin, {
 
   observeRefreshExpanded: observer('refresh-expanded', function() {
     // DO nothing
-  })
+  }),
+
+  actions: {
+    requestChildren() {
+      // resend event
+      this.children(...arguments);
+    }
+  }
 });
