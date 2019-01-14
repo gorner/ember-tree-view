@@ -227,9 +227,12 @@ export default Component.extend(WithConfigMixin, {
     toggle() {
       if (this.get('async') && !this.get('expanded') && !this.get('model.children')) {
         this.set('loading', true);
-        return this.children(this.get('model'), this);
+        let promise = this.children(this.get('model'));
+        promise.then(() => {
+          this.set('loading', false);
+        });
       } else {
-        return this.toggleProperty('expanded');
+        this.toggleProperty('expanded');
       }
     },
 
@@ -238,7 +241,10 @@ export default Component.extend(WithConfigMixin, {
      */
     reloadChildren() {
       if (this.get('async')) {
-        return this.children(this.get('model'), this);
+        let promise = this.children(this.get('model'));
+        promise.then(() => {
+          this.set('loading', false);
+        });
       }
     },
     select() {
@@ -255,7 +261,7 @@ export default Component.extend(WithConfigMixin, {
       }
     },
     requestChildren() {
-      this.children(...arguments);
+      return this.children(...arguments);
     }
   },
 

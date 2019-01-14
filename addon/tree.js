@@ -135,7 +135,7 @@ export default Component.extend(WithConfigMixin, {
   actions: {
     requestChildren() {
       // resend event
-      this.children(...arguments);
+      return this.children(...arguments);
     }
   }
 });

@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { later } from "@ember/runloop";
+import { Promise } from 'rsvp';
 
 export default Controller.extend({
   expandDepth: 1,
@@ -28,26 +29,28 @@ export default Controller.extend({
     anotherLevel() {
       return this.set('expandDepth', this.get('expandDepth') + 1);
     },
-    getChildren(node, c) {
-      return later(this, function() {
-        var i, o, _results;
-        c.set('loading', false);
-        o = Math.floor(Math.random() * this.words.length) + 1;
-        if (node.get('level') < 4) {
-          i = 0;
-          _results = [];
-          while (i < o) {
-            node.createChild({
-              title: this.randomWord(),
-              nodeType: "type" + (Math.floor(Math.random() * 2))
-            });
-            _results.push(i++);
+    getChildren(node) {
+      return new Promise(resolve => {
+        later(this, function() {
+          var i, o, _results;
+          o = Math.floor(Math.random() * this.words.length) + 1;
+          if (node.get('level') < 4) {
+            i = 0;
+            _results = [];
+            while (i < o) {
+              node.createChild({
+                title: this.randomWord(),
+                nodeType: "type" + (Math.floor(Math.random() * 2))
+              });
+              _results.push(i++);
+            }
+            resolve(_results);
+          } else {
+            node.emptyChildren();
+            resolve();
           }
-          return _results;
-        } else {
-          return node.emptyChildren();
-        }
-      }, 500);
+        }, 500);
+      });
     }
   }
 });
