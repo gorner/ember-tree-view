@@ -2,6 +2,7 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { observer } from '@ember/object';
+import { A } from '@ember/array';
 
 const refreshExpanded = (node) => {
   let children;
@@ -64,7 +65,7 @@ export default Component.extend(WithConfigMixin, {
 
   init() {
     this._super();
-    this.set("multi-selection", [])
+    this.set("multi-selection", A());
     observer('expand-depth', 'model', () => {
       var depth;
       if (!this.get('model')) {

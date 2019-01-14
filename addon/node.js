@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import EmberObject, { computed } from '@ember/object';
+import { A } from '@ember/array';
 
-const TreeNode = Ember.Object.extend({
+
+const TreeNode = EmberObject.extend({
   children: void 0,
   parent: void 0,
 
@@ -31,7 +33,7 @@ const TreeNode = Ember.Object.extend({
     return node;
   },
 
-  hasChildren: Ember.computed('children.length', {
+  hasChildren: computed('children.length', {
     get() {
       var _ref;
       return (_ref = this.get('children')) != null ? _ref.length : void 0;
@@ -39,16 +41,16 @@ const TreeNode = Ember.Object.extend({
   }),
 
   emptyChildren: (function() {
-    return this.set('children', Ember.A());
+    return this.set('children', A());
   }),
 
-  hasParent: Ember.computed('parent.parent', {
+  hasParent: computed('parent.parent', {
     get() {
       return this.get('parent.parent') != null;
     }
   }),
 
-  root: Ember.computed('parent', {
+  root: computed('parent', {
     get() {
       let node;
       node = this;
@@ -62,7 +64,7 @@ const TreeNode = Ember.Object.extend({
     }
   }),
 
-  level: Ember.computed('children.length', {
+  level: computed('children.length', {
     get() {
       let currObj = this;
       let i = 0;
@@ -75,7 +77,7 @@ const TreeNode = Ember.Object.extend({
     }
   }),
 
-  isLevel1: Ember.computed('children.length', {
+  isLevel1: computed('children.length', {
     get() {
       return this.get('level') === 0;
     }

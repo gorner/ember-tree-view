@@ -1,9 +1,9 @@
 <span>
-{{#if hasIcon}}
-  <i {{action 'toggle'}} class="{{iconClass}}"></i>
-{{else}}
-  <a {{action 'toggle'}} class="text">*</a>
-{{/if}}
+  {{#if hasIcon}}
+    <i {{action 'toggle'}} class="{{iconClass}}"></i>
+  {{else}}
+    <a {{action 'toggle'}} class="text">*</a>
+  {{/if}}
 </span>
 
 {{#if tree.in-multi-selection}}
