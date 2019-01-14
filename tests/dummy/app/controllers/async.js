@@ -29,7 +29,7 @@ export default Controller.extend({
     anotherLevel() {
       return this.set('expandDepth', this.get('expandDepth') + 1);
     },
-    getChildren(node) {
+    getChildren(node) { // return promise for async
       return new Promise(resolve => {
         later(this, function() {
           var i, o, _results;

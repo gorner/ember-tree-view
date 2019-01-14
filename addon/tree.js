@@ -134,7 +134,7 @@ export default Component.extend(WithConfigMixin, {
 
   actions: {
     requestChildren() {
-      // resend event
+      // wrap it into promise
       return this.children(...arguments);
     }
   }

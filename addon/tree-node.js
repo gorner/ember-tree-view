@@ -3,6 +3,7 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import { computed } from '@ember/object';
 import { tryInvoke } from '@ember/utils';
 import { observer } from '@ember/object';
+import { resolve } from "rsvp";
 
 let getProperty = function(obj, prop) {
   if (!obj) {
@@ -219,6 +220,15 @@ export default Component.extend(WithConfigMixin, {
       return this.get('config.tree')[iconConfigName];
     }
   },
+
+  asyncChildrenRequest() {
+    this.set('loading', true);
+    return resolve().then(() => {
+      return this.children(this.get('model'));
+    }).then(() => {
+      this.set('loading', false);
+    });
+  },
   actions: {
 
     /*
@@ -226,11 +236,7 @@ export default Component.extend(WithConfigMixin, {
      */
     toggle() {
       if (this.get('async') && !this.get('expanded') && !this.get('model.children')) {
-        this.set('loading', true);
-        let promise = this.children(this.get('model'));
-        promise.then(() => {
-          this.set('loading', false);
-        });
+        this.asyncChildrenRequest();
       } else {
         this.toggleProperty('expanded');
       }
@@ -241,10 +247,7 @@ export default Component.extend(WithConfigMixin, {
      */
     reloadChildren() {
       if (this.get('async')) {
-        let promise = this.children(this.get('model'));
-        promise.then(() => {
-          this.set('loading', false);
-        });
+        this.asyncChildrenRequest();
       }
     },
     select() {
