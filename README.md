@@ -1,39 +1,39 @@
-<<<<<<< HEAD
 # ember-tree-view
-=======
-my-addon
-==============================================================================
->>>>>>> 35907e2... message
 
-[Short description of the addon.]
-
-
-<<<<<<< HEAD
-* `git clone <repository-url>` this repository
-* `cd ember-tree-view`
-* `npm install`
-=======
-Compatibility
-------------------------------------------------------------------------------
->>>>>>> 35907e2... message
+A simple tree view addon for ember
 
 * Ember.js v2.18 or above
 * Ember CLI v2.13 or above
-
 
 Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install my-addon
+ember install member-tree-view
 ```
 
 
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+```
+{{em-tree model=model selected=selected}}
+```
 
+Asynchronous loading tree node
+```
+{{em-tree model=model async=true icons-per-type=iconSet expand-depth=expandDepth children=(action "getChildren")}}
+```
+controller
+
+```
+actions: {
+  // return promise for async
+  getChildren(node) { 
+    
+  }
+}
+```
 
 License
 ------------------------------------------------------------------------------
