@@ -1,3 +1,4 @@
+import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
@@ -19,7 +20,7 @@ export default Component.extend(WithConfigMixin, {
   /**
    * A list of {{#crossLink "TreeNode"}}nodes{{/crossLink}} instances.
    */
-  items: computed.alias('model.children'),
+  items: alias('model.children'),
 
   /**
    * True if node's children should be loaded asynchronously

@@ -1,6 +1,7 @@
-import Em from "ember";
+import { later } from '@ember/runloop';
+import Controller from '@ember/controller';
 
-export default Em.Controller.extend({
+export default Controller.extend({
   init() {
     this._super(...arguments);
     this.set("words", ['Foo', 'Bar', 'Baz', 'Qux'],)
@@ -17,7 +18,7 @@ export default Em.Controller.extend({
       });
     },
     getChildren(node, c) {
-      return Em.run.later(this, function() {
+      return later(this, function() {
         var i, o, _results;
         c.set('loading', false);
         o = Math.floor(Math.random() * this.words.length) + 1;
