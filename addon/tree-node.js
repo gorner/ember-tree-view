@@ -191,7 +191,7 @@ export default Component.extend(WithConfigMixin, {
 
   init() {
     this._super(...arguments);
-
+    // eslint-disable-next-line ember/no-observers
     observer('multi-selected', function() {
       if (this.get('multi-selected')) {
         return this.get('tree.multi-selection').pushObject(this.get('model'));
@@ -199,6 +199,7 @@ export default Component.extend(WithConfigMixin, {
         return this.get('tree.multi-selection').removeObject(this.get('model'));
       }
     });
+    // eslint-disable-next-line ember/no-observers
     observer('model.requestReload', () => {
       if (this.get('model.requestReload')) {
         this.set('model.requestReload', false);
@@ -272,6 +273,7 @@ export default Component.extend(WithConfigMixin, {
   /*
    * The name of the method to invoke in async mode to get the children of a node when expanded
    */
+  // eslint-disable-next-line ember/no-observers
   loadingHasChanged: observer("loading", function() {
     if (!this.get('loading')) {
       return this.toggleProperty('expanded');

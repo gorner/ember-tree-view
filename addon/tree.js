@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 import { A } from '@ember/array';
 
+// eslint-disable-next-line no-unused-vars
 const refreshExpanded = (node) => {
   let children;
   if (node.get('expanded')) {
@@ -63,6 +64,7 @@ export default Component.extend(WithConfigMixin, {
     }
   }),
 
+  // eslint-disable-next-line ember/no-observers
   valuesChanged: observer('expand-depth', 'model', () => {
     this.expandTreeIfNeeded();
   }),
@@ -134,6 +136,7 @@ export default Component.extend(WithConfigMixin, {
   'expand-depth': null,
   'refresh-expanded': false,
 
+  // eslint-disable-next-line ember/no-observers
   observeRefreshExpanded: observer('refresh-expanded', function() {
     // DO nothing
   }),
