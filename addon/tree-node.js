@@ -1,3 +1,4 @@
+import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import { computed } from '@ember/object';
@@ -68,18 +69,18 @@ export default Component.extend(WithConfigMixin, {
   /**
    * A reference to the root model
    */
-  rootModel: computed.alias('tree.model'),
+  rootModel: alias('tree.model'),
 
   /**
    * True if the node is currently expanded, meaning its children are visible.
    */
-  expanded: computed.alias('model.expanded'),
+  expanded: alias('model.expanded'),
 
   /**
    * True if this node view is currently checked
    * This is only relevant if the tree configured to support multi selection
    */
-  'multi-selected': computed.alias('model.selected'),
+  'multi-selected': alias('model.selected'),
 
   /**
    * True if should render an icon tag for this node view
