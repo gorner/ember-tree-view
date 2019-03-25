@@ -16,10 +16,9 @@ export default Em.Controller.extend({
         title: this.randomWord()
       });
     },
-    getChildren(node, c) {
+    getChildren(node) {
       return Em.run.later(this, function() {
-        var i, o, _results;
-        c.set('loading', false);
+        let i, o, _results;
         o = Math.floor(Math.random() * this.words.length) + 1;
         if (node.get('level') < 4) {
           i = 0;

@@ -63,11 +63,18 @@ export default Component.extend(WithConfigMixin, {
     }
   }),
 
+  valuesChanged: observer('expand-depth', 'model', () => {
+    this.expandTreeIfNeeded();
+  }),
+
   init() {
     this._super();
     this.set("multi-selection", A());
-    observer('expand-depth', 'model', () => {
-      var depth;
+    this.expandTreeIfNeeded();
+  },
+
+  expandTreeIfNeeded() {
+    let depth = 0;
       if (!this.get('model')) {
         return;
       }
@@ -78,7 +85,6 @@ export default Component.extend(WithConfigMixin, {
         }
         return expandTree(this.get('async'), this.get('model'), depth);
       }
-    });
   },
 
   /*
