@@ -190,8 +190,7 @@ export default Component.extend(WithConfigMixin, {
     }
   }),
 
-  // eslint-disable-next-line ember/no-observers
-  // eslint-disable-next-line ember/no-on-calls-in-components
+  // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
   observeMultiSelectedChang: on('init', observer('multi-selected', function() {
     if (this.get('multi-selected')) {
       return this.get('tree.multi-selection').pushObject(this.get('model'));
@@ -200,8 +199,7 @@ export default Component.extend(WithConfigMixin, {
     }
   })),
 
-  // eslint-disable-next-line ember/no-observers
-  // eslint-disable-next-line ember/no-on-calls-in-components
+  // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
   observeRequestLoadChange: on('init', observer('model.requestReload', function () {
     if (this.get('model.requestReload')) {
       this.set('model.requestReload', false);
