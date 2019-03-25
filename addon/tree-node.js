@@ -4,6 +4,7 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import { computed } from '@ember/object';
 import { tryInvoke } from '@ember/utils';
 import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
 import { resolve } from "rsvp";
 
 let getProperty = function(obj, prop) {
@@ -189,25 +190,25 @@ export default Component.extend(WithConfigMixin, {
     }
   }),
 
-  init() {
-    this._super(...arguments);
-    // eslint-disable-next-line ember/no-observers
-    observer('multi-selected', function() {
-      if (this.get('multi-selected')) {
-        return this.get('tree.multi-selection').pushObject(this.get('model'));
-      } else {
-        return this.get('tree.multi-selection').removeObject(this.get('model'));
-      }
-    });
-    // eslint-disable-next-line ember/no-observers
-    observer('model.requestReload', () => {
-      if (this.get('model.requestReload')) {
-        this.set('model.requestReload', false);
-        this.send('reloadChildren');
-        return this.set('model.expanded', true);
-      }
-    });
-  },
+  // eslint-disable-next-line ember/no-observers
+  // eslint-disable-next-line ember/no-on-calls-in-components
+  observeMultiSelectedChang: on('init', observer('multi-selected', function() {
+    if (this.get('multi-selected')) {
+      return this.get('tree.multi-selection').pushObject(this.get('model'));
+    } else {
+      return this.get('tree.multi-selection').removeObject(this.get('model'));
+    }
+  })),
+
+  // eslint-disable-next-line ember/no-observers
+  // eslint-disable-next-line ember/no-on-calls-in-components
+  observeRequestLoadChange: on('init', observer('model.requestReload', function () {
+    if (this.get('model.requestReload')) {
+      this.set('model.requestReload', false);
+      this.send('reloadChildren');
+      return this.set('model.expanded', true);
+    }
+  })),
 
   /*
    * Get the icon for the model, if set by the tree icon's metadata, otherwise use defaults configured by the tree level.
