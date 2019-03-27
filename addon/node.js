@@ -1,6 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { A } from '@ember/array';
-
+import { notEmpty, gt } from '@ember/object/computed';
 
 const TreeNode = EmberObject.extend({
   children: void 0,
@@ -16,8 +16,6 @@ const TreeNode = EmberObject.extend({
   },
 
   createChild(object) {
-    //let c1 = Node.create();
-
     if (!this.get('children')) {
       this.emptyChildren();
     }
@@ -33,22 +31,13 @@ const TreeNode = EmberObject.extend({
     return node;
   },
 
-  hasChildren: computed('children.length', {
-    get() {
-      var _ref;
-      return (_ref = this.get('children')) != null ? _ref.length : void 0;
-    }
-  }),
+  hasChildren: gt('children.length', 0),
 
   emptyChildren: (function() {
     return this.set('children', A());
   }),
 
-  hasParent: computed('parent.parent', {
-    get() {
-      return this.get('parent.parent') != null;
-    }
-  }),
+  hasParent: notEmpty('parent'),
 
   root: computed('parent', {
     get() {
