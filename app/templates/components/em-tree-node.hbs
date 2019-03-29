@@ -8,20 +8,23 @@
 
 {{#if tree.in-multi-selection}}
   <span class="em-tree-node-multiselection">
-  {{#if multi-selected}}
+    {{#if multi-selected}}
       <i {{action "toggleSelection"}} class="{{tree.selected-icon}}"></i>
-  {{else}}
+    {{else}}
       <i {{action "toggleSelection"}} class="{{tree.unselected-icon}}"></i>
-  {{/if}}
+    {{/if}}
   </span>
 {{/if}}
 
 <span {{action "select"}} class="{{nodeSelectedClasses}} title">
+  {{#if model.nodeIcon}}
+    {{svg-jar model.nodeIcon class="em-tree-icon" width="24px"}}
+  {{/if}}
   {{model.title}}
   {{#if tree.hovered-actions}}
     <span class="actions">
       {{#each hoveredActions}}
-          {{em-tree-node-icon-action meta=this model=controller.model}}
+        {{em-tree-node-icon-action meta=this model=controller.model}}
       {{/each}}
     </span>
   {{/if}}

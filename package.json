@@ -29,7 +29,9 @@
   },
   "dependencies": {
     "ember-cli-babel": "^7.6.0",
-    "ember-tree-utils": "^3.7.2"
+    "ember-tree-utils": "^3.7.2",
+    "flat-color-icons": "^1.1.0",
+    "ember-svg-jar": "^1.2.2"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",

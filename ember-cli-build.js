@@ -9,6 +9,11 @@ module.exports = function(defaults) {
       bootstrapVersion: 4,
       importBootstrapFont: false,
       importBootstrapCSS: false
+    },
+    svgJar: {
+      sourceDirs: [
+        'node_modules/flat-color-icons/svg',
+      ]
     }
   });
 

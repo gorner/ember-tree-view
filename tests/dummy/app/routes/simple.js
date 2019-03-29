@@ -5,25 +5,31 @@ export default Route.extend({
   model() {
     let family, lud, suz;
     family = Node.create({
-      title: 'Family'
+      title: 'Family',
+      nodeIcon: "filing_cabinet"
     });
     suz = family.createChild({
-      title: 'Susan'
+      title: 'Susan',
+      nodeIcon: "folder"
     });
     lud = family.createChild({
-      title: 'Luda'
+      title: 'Luda',
+      nodeIcon: "folder"
     });
     suz.createChild({
-      title: 'Josh'
+      title: 'Josh',
+      nodeIcon: "folder"
     });
     suz.createChild({
       title: 'Moses'
     });
     lud.createChild({
-      title: 'Verdi'
+      title: 'Verdi',
+      nodeIcon: "folder"
     });
     lud.createChild({
-      title: 'Gaya'
+      title: 'Gaya',
+      nodeIcon: "folder"
     });
     return family;
   }
