@@ -1,14 +1,6 @@
 {
   "name": "ember-tree-view",
-<<<<<<< HEAD
-  "version": "3.7.6",
-=======
-<<<<<<< HEAD
-  "version": "3.7.4",
-=======
   "version": "3.7.7",
->>>>>>> 7624d6c (initial)
->>>>>>> b5addc2 (initial)
   "description": "Tree View Component for Ember.",
   "keywords": [
     "ember-addon"
