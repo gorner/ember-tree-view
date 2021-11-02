@@ -78,6 +78,18 @@ export default Component.extend(WithConfigMixin, {
   expanded: alias('model.expanded'),
 
   /**
+   * Node icon per expanded
+   */
+  nodeIcon: computed("model.nodeIcon", "expanded", {
+    get() {
+      if (this.expanded) {
+        return this.model.nodeExpandedIcon || this.model.nodeIcon;
+      }
+      return this.model.nodeIcon;
+    }
+  }),
+
+  /**
    * True if this node view is currently checked
    * This is only relevant if the tree configured to support multi selection
    */
