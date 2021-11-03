@@ -8,30 +8,30 @@ export default class SimpleRoute extends Route {
     let family, lud, suz;
     family = Node.create({
       title: 'Family',
-      nodeIcon: "filing_cabinet"
+      nodeIcon: 'filing_cabinet',
     });
     suz = family.createChild({
       title: 'Susan',
-      nodeIcon: "folder"
+      nodeIcon: 'folder',
     });
     lud = family.createChild({
       title: 'Luda',
-      nodeIcon: "folder"
+      nodeIcon: 'folder',
     });
     suz.createChild({
       title: 'Josh',
-      nodeIcon: "folder"
+      nodeIcon: 'folder',
     });
     suz.createChild({
-      title: 'Moses'
+      title: 'Moses',
     });
     lud.createChild({
       title: 'Verdi',
-      nodeIcon: "folder"
+      nodeIcon: 'folder',
     });
     lud.createChild({
       title: 'Gaya',
-      nodeIcon: "folder"
+      nodeIcon: 'folder',
     });
     return family;
   }

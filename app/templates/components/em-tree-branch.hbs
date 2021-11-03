@@ -1,3 +1,4 @@
 {{#each this.items as |child|}}
-  <EmTreeNode @model={{child}} @requestReload={{requestReload}} @tree={{tree}} @async={{async}} @target={{target}} @children={{action "requestChildren"}} />
+  <EmTreeNode @model={{child}} @requestReload={{this.requestReload}}
+  @tree={{this.tree}} @async={{this.async}} @target={{this.target}} @children={{action "requestChildren"}} />
 {{/each}}
