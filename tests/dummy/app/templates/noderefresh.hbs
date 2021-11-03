@@ -5,9 +5,9 @@
 </p>
 
 <h2>Demo</h2>
-{{em-tree model=model async=true selected=selected}}
+{{em-tree model=this.model async=true selected=this.selected}}
 
-{{#if selected}}
+{{#if this.selected}}
   <button {{action "addAndRefresh"}}>Add child to selected node and refresh</button>
 {{/if}}
 

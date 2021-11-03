@@ -16,21 +16,11 @@
   </span>
 {{/if}}
 
-<<<<<<< HEAD
 <span {{action "select"}} class="{{nodeSelectedClasses}} title">
   {{#if model.nodeIcon}}
     {{svg-jar model.nodeIcon class="em-tree-icon" width="24px"}}
   {{/if}}
   {{model.title}}
-=======
-<span {{action "select"}} class="{{nodeSelectedClasses}} tree-node-title">
-  {{#if nodeIcon}}
-    {{svg-jar nodeIcon class="em-tree-icon" width="24px"}}
-  {{/if}}
-  <span>
-    {{model.title}}
-  </span>
->>>>>>> b5addc2 (initial)
   {{#if tree.hovered-actions}}
     <span class="actions">
       {{#each hoveredActions}}

@@ -22,8 +22,8 @@ It is possible to render a tree from ember data models as long as your model has
 </p>
 
 <h2>Demo</h2>
-{{em-tree model=model selected=current}}
-Selected: {{current}}
+{{em-tree model=this.model selected=this.current}}
+Selected: {{this.current}}
 
 <h2>Markup</h2>
 
@@ -58,4 +58,4 @@ Selected: {{current}}
   </pre>
 </div>
 
-{{em-tree-branch node=model}}
+{{em-tree-branch node=this.model}}

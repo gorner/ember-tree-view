@@ -1,4 +1,4 @@
-import Controller from "@ember/controller";
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   expandDepth: 1,
@@ -6,6 +6,6 @@ export default Controller.extend({
     expand() {
       this.get('selected').toggleProperty('expanded');
       return null;
-    }
-  }
+    },
+  },
 });

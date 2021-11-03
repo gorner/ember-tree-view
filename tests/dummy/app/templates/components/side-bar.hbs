@@ -1,6 +1,6 @@
 <div class="well sidebar">
   <ul class="nav flex-column">
-    {{#each items as | item|}}
+    {{#each this.items as | item|}}
       <li class="nav-item">
         {{#link-to item.route}}{{item.text}}{{/link-to}}
       </li>
