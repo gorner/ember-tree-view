@@ -2,7 +2,7 @@
   <ul class="nav flex-column">
     {{#each this.items as | item|}}
       <li class="nav-item">
-        {{#link-to item.route}}{{item.text}}{{/link-to}}
+        <LinkTo @route={{item.route}}>{{item.text}}</LinkTo>
       </li>
     {{/each}}
   </ul>

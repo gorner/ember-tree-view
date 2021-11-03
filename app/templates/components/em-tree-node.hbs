@@ -24,12 +24,12 @@
   {{#if this.tree.hovered-actions}}
     <span class="actions">
       {{#each this.hoveredActions}}
-        {{em-tree-node-icon-action meta=this model=controller.model}}
+        <EmTreeNodeIconAction @meta={{this}} @model={{controller.model}} />
       {{/each}}
     </span>
   {{/if}}
 </span>
 
 {{#if this.expanded}}
-  {{em-tree-branch model=model tree=tree async=async target=target children=(action "requestChildren")}}
+  <EmTreeBranch @model={{model}} @tree={{tree}} @async={{async}} @target={{target}} @children={{action "requestChildren"}} />
 {{/if}}

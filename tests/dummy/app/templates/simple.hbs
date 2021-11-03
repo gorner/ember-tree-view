@@ -14,7 +14,7 @@
 
 <h2>Demo</h2>
 
-{{em-tree model=this.model selected=this.selected expand-depth=this.expandDepth}}
+<EmTree @model={{this.model}} @selected={{this.selected}} @expand-depth={{this.expandDepth}} />
 
 {{#if this.selected}}
   Selected node is: {{this.selected.title}}

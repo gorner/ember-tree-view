@@ -5,7 +5,7 @@
 </p>
 
 <h2>Demo</h2>
-{{em-tree model=this.model async=true selected=this.selected}}
+<EmTree @model={{this.model}} @async={{true}} @selected={{this.selected}} />
 
 {{#if this.selected}}
   <button {{action "addAndRefresh"}}>Add child to selected node and refresh</button>
