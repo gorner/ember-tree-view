@@ -1,5 +1,5 @@
 import Em from '@ember/engine';
-import Config from 'ember-tree-utils/config'
+import Config from 'ember-tree-utils/config';
 
 export default {
   name: 'ember-tree-view',
@@ -27,7 +27,7 @@ export default {
       nodeLeafClasses: ['leaf'],
       nodeLeafIconClasses: ['fa-li', 'fa', 'fa-square-o'],
       nodeLoadingIconClasses: ['fa-li', 'fa', 'fa-spinner', 'fa-spin'],
-      nodeSelectedClasses: ['em-tree-node-active']
-    }
-  }
+      nodeSelectedClasses: ['em-tree-node-active'],
+    };
+  },
 };

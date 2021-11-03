@@ -1,0 +1,24 @@
+2021-11-03T15:29:38.456Z [info] [tests/dummy/app/routes/async.js]: SUCCESS
+2021-11-03T15:29:38.494Z [info] [tests/dummy/app/routes/emberdata.js]: SUCCESS
+2021-11-03T15:29:38.648Z [info] [tests/dummy/app/routes/noderefresh.js]: SUCCESS
+2021-11-03T15:29:38.701Z [info] [tests/dummy/app/controllers/simple.js]: SUCCESS
+2021-11-03T15:29:38.720Z [info] [tests/dummy/app/routes/simple.js]: SUCCESS
+2021-11-03T15:29:38.730Z [warn] [tests/dummy/app/initializers/highlight.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2021-11-03T15:29:38.787Z [info] [tests/dummy/app/controllers/expand.js]: SUCCESS
+2021-11-03T15:29:38.874Z [info] [tests/dummy/app/controllers/hoveredactions.js]: SUCCESS
+2021-11-03T15:29:38.979Z [info] [tests/dummy/app/components/side-bar.js]: SUCCESS
+2021-11-03T15:29:39.078Z [info] [tests/dummy/app/routes/expand.js]: SUCCESS
+2021-11-03T15:29:39.116Z [info] [tests/dummy/app/routes/multiselection.js]: SUCCESS
+2021-11-03T15:29:39.126Z [info] [tests/dummy/app/controllers/async.js]: SUCCESS
+2021-11-03T15:29:39.160Z [info] [tests/dummy/app/controllers/noderefresh.js]: SUCCESS
+2021-11-03T15:29:39.228Z [info] [tests/dummy/app/controllers/multiselection.js]: SUCCESS
+2021-11-03T15:33:35.874Z [info] [addon/tree-branch.js]: SUCCESS
+2021-11-03T15:33:35.887Z [info] [addon/tree-node-icon-action.js]: SUCCESS
+2021-11-03T15:33:35.912Z [warn] [addon/tree.js]: FAILURE 
+Validation errors: 
+	[valuesChanged]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+	[observeRefreshExpanded]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+2021-11-03T15:33:35.927Z [info] [addon/node.js]: SUCCESS
+2021-11-03T15:33:35.983Z [warn] [addon/tree-node.js]: FAILURE 
+Validation errors: 
+	[loadingHasChanged]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed

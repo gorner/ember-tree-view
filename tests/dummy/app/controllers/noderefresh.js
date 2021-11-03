@@ -1,24 +1,31 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import { later } from '@ember/runloop';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
+@classic
+export default class NoderefreshController extends Controller {
   init() {
-    this._super(...arguments);
-    this.set("words", ['Foo', 'Bar', 'Baz', 'Qux'],)
-  },
+    super.init(...arguments);
+    this.set('words', ['Foo', 'Bar', 'Baz', 'Qux']);
+  }
 
   randomWord() {
     return this.words[Math.floor(Math.random() * this.words.length)];
-  },
+  }
 
-  actions: {
-    addAndRefresh() {
-      return this.get('selected').createChild({
-        title: this.randomWord()
-      });
-    },
-    getChildren(node) {
-      return later(this, function() {
+  @action
+  addAndRefresh() {
+    return this.selected.createChild({
+      title: this.randomWord(),
+    });
+  }
+
+  @action
+  getChildren(node) {
+    return later(
+      this,
+      function () {
         let i, o, _results;
 
         o = Math.floor(Math.random() * this.words.length) + 1;
@@ -27,7 +34,7 @@ export default Controller.extend({
           _results = [];
           while (i < o) {
             node.createChild({
-              title: this.randomWord()
+              title: this.randomWord(),
             });
             _results.push(i++);
           }
@@ -35,7 +42,8 @@ export default Controller.extend({
         } else {
           return node.emptyChildren();
         }
-      }, 500);
-    }
+      },
+      500
+    );
   }
-});
+}

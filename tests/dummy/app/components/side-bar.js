@@ -1,8 +1,10 @@
+import classic from 'ember-classic-decorator';
 import Component from '@ember/component';
 
-export default Component.extend({
+@classic
+export default class SideBar extends Component {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.set("items",  [
       {route: 'gettingstarted', text: 'Getting Started'},
       {route: 'simple', text: 'Simple'},
@@ -14,4 +16,4 @@ export default Component.extend({
       {route: 'noderefresh', text: 'Node Refresh'}
     ]);
   }
-});
+}

@@ -1,35 +1,35 @@
 <span>
-  {{#if hasIcon}}
+  {{#if this.hasIcon}}
     <i {{action "toggle"}} class="{{iconClass}}"></i>
   {{else}}
     <a {{action "toggle"}} class="text">*</a>
   {{/if}}
 </span>
 
-{{#if tree.in-multi-selection}}
+{{#if this.tree.in-multi-selection}}
   <span class="em-tree-node-multiselection">
     {{#if multi-selected}}
-      <i {{action "toggleSelection"}} class="{{tree.selected-icon}}"></i>
+      <i {{action "toggleSelection"}} class="{{this.tree.selected-icon}}"></i>
     {{else}}
-      <i {{action "toggleSelection"}} class="{{tree.unselected-icon}}"></i>
+      <i {{action "toggleSelection"}} class="{{this.tree.unselected-icon}}"></i>
     {{/if}}
   </span>
 {{/if}}
 
 <span {{action "select"}} class="{{nodeSelectedClasses}} title">
-  {{#if model.nodeIcon}}
+  {{#if this.model.nodeIcon}}
     {{svg-jar model.nodeIcon class="em-tree-icon" width="24px"}}
   {{/if}}
-  {{model.title}}
-  {{#if tree.hovered-actions}}
+  {{this.model.title}}
+  {{#if this.tree.hovered-actions}}
     <span class="actions">
-      {{#each hoveredActions}}
+      {{#each this.hoveredActions}}
         {{em-tree-node-icon-action meta=this model=controller.model}}
       {{/each}}
     </span>
   {{/if}}
 </span>
 
-{{#if expanded}}
+{{#if this.expanded}}
   {{em-tree-branch model=model tree=tree async=async target=target children=(action "requestChildren")}}
 {{/if}}

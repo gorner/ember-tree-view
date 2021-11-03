@@ -2,20 +2,12 @@ import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import { computed } from '@ember/object';
-import { tryInvoke } from '@ember/utils';
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
 import { resolve } from 'rsvp';
 
 let getProperty = function (obj, prop) {
-  if (!obj) {
-    return undefined;
-  }
-  let result = tryInvoke(obj, 'get');
-  if (!result) {
-    return obj[prop];
-  }
-  return result;
+  return obj?.[prop];
 };
 
 /**

@@ -1,10 +1,14 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  expandDepth: 99,
-  actions: {
-    anotherLevel: function() {
-      return this.set('expandDepth', this.get('expandDepth') + 1);
-    }
+@classic
+export default class ExpandController extends Controller {
+  expandDepth = 99;
+
+  @action
+  anotherLevel() {
+    this.expandDepth = this.expandDepth + 1;
+    return this.expandDepth;
   }
-});
+}

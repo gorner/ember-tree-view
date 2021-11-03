@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import Node from 'ember-tree-view/node';
 
-export default Route.extend({
+@classic
+export default class SimpleRoute extends Route {
   model() {
     let family, lud, suz;
     family = Node.create({
@@ -33,4 +35,4 @@ export default Route.extend({
     });
     return family;
   }
-});
+}

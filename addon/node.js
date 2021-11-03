@@ -1,80 +1,81 @@
+import classic from 'ember-classic-decorator';
+import { gt, notEmpty } from '@ember/object/computed';
 import EmberObject, { computed } from '@ember/object';
 import { A } from '@ember/array';
-import { notEmpty, gt } from '@ember/object/computed';
 
-const TreeNode = EmberObject.extend({
-  children: void 0,
-  parent: void 0,
+@classic
+class TreeNode extends EmberObject {
+  children = void 0;
+  parent = void 0;
 
   addChild(node) {
-    if (!this.get('children')) {
+    if (!this.children) {
       this.emptyChildren();
     }
     node.set('parent', this);
     this.children.addObject(node());
     return node;
-  },
+  }
 
   createChild(object) {
-    if (!this.get('children')) {
+    if (!this.children) {
       this.emptyChildren();
     }
     let c = TreeNode.create(object);
     c.set('parent', this);
-    this.get('children').pushObject(c);
+    this.children.pushObject(c);
     return c;
-  },
+  }
 
   removeChild(node) {
     node.set('parent', void 0);
     this.children.removeObject(node);
     return node;
-  },
+  }
 
-  hasChildren: gt('children.length', 0),
+  @gt('children.length', 0)
+  hasChildren;
 
-  emptyChildren: function () {
+  emptyChildren() {
     return this.set('children', A());
-  },
+  }
 
-  hasParent: notEmpty('parent'),
+  @notEmpty('parent')
+  hasParent;
 
-  root: computed('parent', {
-    get() {
-      let node;
-      node = this;
-      while (node.get('hasParent')) {
-        if (!node.get('hasParent')) {
-          return node;
-        }
-        node = node.get('parent');
+  @computed('parent')
+  get root() {
+    let node;
+    node = this;
+    while (node.get('hasParent')) {
+      if (!node.get('hasParent')) {
+        return node;
       }
-      return node;
-    },
-  }),
+      node = node.get('parent');
+    }
+    return node;
+  }
 
-  level: computed('children.length', {
-    get() {
-      let currObj = this;
-      let i = 0;
+  @computed('children.length')
+  get level() {
+    let currObj = this;
+    let i = 0;
 
-      while (currObj.get('hasParent')) {
-        i++;
-        currObj = currObj.get('parent');
-      }
-      return i;
-    },
-  }),
+    while (currObj.get('hasParent')) {
+      i++;
+      currObj = currObj.get('parent');
+    }
+    return i;
+  }
 
-  isLevel1: computed('children.length', {
-    get() {
-      return this.get('level') === 0;
-    },
-  }),
+  @computed('children.length')
+  get isLevel1() {
+    return this.get('level') === 0;
+  }
 
-  findChildBy: function (key, name) {
+  findChildBy(key, name) {
     return this._findChildrenOfNodeBy(this, key, name);
-  },
+  }
 
   _findChildrenOfNodeBy(currChild, key, value) {
     var c, _i, _len, _ref, _ref1;
@@ -95,7 +96,7 @@ const TreeNode = EmberObject.extend({
       return null;
     }
     return null;
-  },
-});
+  }
+}
 
 export default TreeNode;

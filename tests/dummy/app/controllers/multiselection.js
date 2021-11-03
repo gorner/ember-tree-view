@@ -1,19 +1,21 @@
+import classic from 'ember-classic-decorator';
+import { computed } from '@ember/object';
 import Controller from "@ember/controller";
-import { computed } from "@ember/object";
 
-export default Controller.extend({
-  multiNames: computed('multi.length', {
-    get() {
-      var s;
-      s = "";
-      this.multi.forEach(function(r) {
-        return s += " " + r.get('title');
-      });
-      return s;
-    }
-  }),
+@classic
+export default class MultiselectionController extends Controller {
+  @computed('multi.length')
+  get multiNames() {
+    var s;
+    s = "";
+    this.multi.forEach(function(r) {
+      return s += " " + r.get('title');
+    });
+    return s;
+  }
+
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.set("multi", []);
   }
-});
+}

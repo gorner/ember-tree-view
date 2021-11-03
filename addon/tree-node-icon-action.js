@@ -1,98 +1,84 @@
+import classic from 'ember-classic-decorator';
+import { attributeBindings, classNameBindings, tagName } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import StyleBindingsMixin from 'ember-tree-utils/mixins/style-bindings';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
-import { computed } from '@ember/object';
 /**
  * An icon action of a tree node
  * @class TreeNodeIconAction
  */
 
-export default Component.extend(WithConfigMixin, StyleBindingsMixin, {
-  attributeBindings: ['stickyMode:sticky'],
-
-  /**
-   * The tag name of the icon action,
-   * default is `<i>` but can be replaced with any tag.
-   * @property tagName
-   * @public
-   */
-  tagName: 'i',
-
+@classic
+@attributeBindings('stickyMode:sticky')
+@tagName('i')
+@classNameBindings('iconClasses')
+export default class TreeNodeIconAction extends Component.extend(WithConfigMixin, StyleBindingsMixin) {
   /**
    * Bind the visibility css property,
    * this is required for the `sticky` property
    * @property styleBindings
    * @private
    */
-  styleBindings: 'visibility',
+  styleBindings = 'visibility';
 
   /**
    * Defines the css visibility according to the value of the `sticky` property
    * @property visibility
    * @private
    */
-  visibility: computed("sticky", {
-    get() {
-      if (this.get('sticky')) {
-        return 'visible';
-      } else {
-        return void 0;
-      }
+  @computed("sticky")
+  get visibility() {
+    if (this.get('sticky')) {
+      return 'visible';
+    } else {
+      return void 0;
     }
-  }),
+  }
 
   /**
    * 'true' if the action icon should be sticky and not disappear when item is not hovered
    * @property sticky
    * @public
    */
-  sticky: false,
-  stickyMode: computed("sticky",{
-    get() {
-      if (this.get('sticky')) {
-        return 'true';
-      } else {
-        return void 0;
-      }
-    }
-  }),
+  sticky = false;
 
-  /**
-   * Binds the specified css classes
-   * @property classNameBindings
-   * @private
-   */
-  classNameBindings: ['iconClasses'],
+  @computed("sticky")
+  get stickyMode() {
+    if (this.get('sticky')) {
+      return 'true';
+    } else {
+      return void 0;
+    }
+  }
 
   init() {
-    this._super();
+    super.init();
     this.on("click", () => {
       this.invoke();
     });
-  },
+  }
 
   /**
    * Set the given array of classes
    * @property iconClasses
    * @private
    */
-  iconClasses: computed("meta.classes", {
-    get() {
-      let _ref;
-      return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
-    }
-  }),
+  @computed("meta.classes")
+  get iconClasses() {
+    let _ref;
+    return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
+  }
 
   /**
    * An alias to the node model of this action
    * @property node
    * @public
    */
-  node: computed("", {
-    get() {
-      return this.get('parentView.node');
-    }
-  }).volatile(),
+  @(computed("").volatile())
+  get node() {
+    return this.get('parentView.node');
+  }
 
   /**
    * Invoked when the action is clicked
@@ -101,4 +87,4 @@ export default Component.extend(WithConfigMixin, StyleBindingsMixin, {
   invoke() {
     return this.get('parentView.target').send(this.get('meta.action'), this);
   }
-});
+}

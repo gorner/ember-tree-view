@@ -1,11 +1,14 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  expandDepth: 1,
-  actions: {
-    expand() {
-      this.get('selected').toggleProperty('expanded');
-      return null;
-    },
-  },
-});
+@classic
+export default class SimpleController extends Controller {
+  expandDepth = 1;
+
+  @action
+  expand() {
+    this.selected.toggleProperty('expanded');
+    return null;
+  }
+}
