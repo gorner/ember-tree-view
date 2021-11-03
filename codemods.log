@@ -22,3 +22,10 @@ Validation errors:
 2021-11-03T15:33:35.983Z [warn] [addon/tree-node.js]: FAILURE 
 Validation errors: 
 	[loadingHasChanged]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+2021-11-03T16:23:55.483Z [warn] [addon/tree.js]: FAILURE 
+Validation errors: 
+	[valuesChanged]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+	[observeRefreshExpanded]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+2021-11-03T16:23:55.548Z [warn] [addon/tree-node.js]: FAILURE 
+Validation errors: 
+	[loadingHasChanged]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed

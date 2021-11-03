@@ -4,7 +4,7 @@ import EmberObject, { computed } from '@ember/object';
 import { A } from '@ember/array';
 
 @classic
-class TreeNode extends EmberObject {
+export default class TreeNode extends EmberObject {
   children = void 0;
   parent = void 0;
 
@@ -68,9 +68,9 @@ class TreeNode extends EmberObject {
     return i;
   }
 
-  @computed('children.length')
+  @computed('level')
   get isLevel1() {
-    return this.get('level') === 0;
+    return this.level === 0;
   }
 
   findChildBy(key, name) {
@@ -98,5 +98,3 @@ class TreeNode extends EmberObject {
     return null;
   }
 }
-
-export default TreeNode;

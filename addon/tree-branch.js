@@ -1,5 +1,4 @@
 import classic from 'ember-classic-decorator';
-import { classNameBindings, tagName } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
@@ -10,10 +9,7 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
  *
  * @class TreeBranch
  */
-
 @classic
-@tagName('ul')
-@classNameBindings('styleClasses')
 export default class TreeBranch extends Component.extend(WithConfigMixin) {
   /**
    * The model to render its children within this branch
@@ -36,10 +32,10 @@ export default class TreeBranch extends Component.extend(WithConfigMixin) {
 
   layoutName = 'em-tree-branch';
 
-  @computed("")
+  @computed('config.tree.branchClasses')
   get styleClasses() {
-    const _ref = this.get('config.tree.branchClasses');
-    return _ref != null ? _ref.join(" ") : void 0;
+    const _ref = this.config.tree.branchClasses;
+    return _ref?.join(' ') ?? void 0;
   }
 
   @action
