@@ -5,9 +5,9 @@ import { computed } from '@ember/object';
 import { tryInvoke } from '@ember/utils';
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
-import { resolve } from "rsvp";
+import { resolve } from 'rsvp';
 
-let getProperty = function(obj, prop) {
+let getProperty = function (obj, prop) {
   if (!obj) {
     return undefined;
   }
@@ -29,33 +29,41 @@ export default Component.extend(WithConfigMixin, {
   attributeBindings: ['multi-selected'],
   classNameBindings: ['styleClasses', 'expandedClasses', 'leafClasses'],
 
-  styleClasses: computed("", {
+  styleClasses: computed('', {
     get() {
       var _ref;
-      return (_ref = this.get('config.tree.nodeClasses')) != null ? _ref.join(" ") : void 0;
-    }
+      return (_ref = this.get('config.tree.nodeClasses')) != null
+        ? _ref.join(' ')
+        : void 0;
+    },
   }),
 
   expandedClasses: computed('expanded', 'leaf', 'loading', {
     get() {
       var _ref, _ref1;
       if (this.get('expanded')) {
-        return (_ref = this.get('config.tree.nodeOpenClasses')) != null ? _ref.join(" ") : void 0;
+        return (_ref = this.get('config.tree.nodeOpenClasses')) != null
+          ? _ref.join(' ')
+          : void 0;
       } else {
-        return (_ref1 = this.get('config.tree.nodeCloseClasses')) != null ? _ref1.join(" ") : void 0;
+        return (_ref1 = this.get('config.tree.nodeCloseClasses')) != null
+          ? _ref1.join(' ')
+          : void 0;
       }
-    }
+    },
   }),
 
   nodeSelectedClasses: computed('isSelected', {
     get() {
       var _ref;
       if (this.get('isSelected')) {
-        return (_ref = this.get('config.tree.nodeSelectedClasses')) != null ? _ref.join(" ") : void 0;
+        return (_ref = this.get('config.tree.nodeSelectedClasses')) != null
+          ? _ref.join(' ')
+          : void 0;
       } else {
         return null;
       }
-    }
+    },
   }),
   /**
    * The model the tree node view is bound to
@@ -80,13 +88,13 @@ export default Component.extend(WithConfigMixin, {
   /**
    * Node icon per expanded
    */
-  nodeIcon: computed("model.nodeIcon", "expanded", {
+  nodeIcon: computed('model.nodeIcon', 'expanded', {
     get() {
       if (this.expanded) {
         return this.model.nodeExpandedIcon || this.model.nodeIcon;
       }
       return this.model.nodeIcon;
-    }
+    },
   }),
 
   /**
@@ -111,7 +119,7 @@ export default Component.extend(WithConfigMixin, {
   isSelected: computed('tree.selected', {
     get() {
       return this.get('tree.selected') === this.get('model');
-    }
+    },
   }),
 
   /**
@@ -119,19 +127,19 @@ export default Component.extend(WithConfigMixin, {
    * Usually that means the node is defined asynchronously and its children are currently being loaded
    */
   loading: false,
-  branch: computed("", {
+  branch: computed('', {
     get() {
       return this.get('parentView');
-    }
+    },
   }).volatile(),
 
   /**
    * true if the loading mode of the node's children should be async
    */
-  async: computed("", {
+  async: computed('', {
     get() {
       return this.get('parentView.node');
-    }
+    },
   }).volatile(),
 
   /**
@@ -139,8 +147,10 @@ export default Component.extend(WithConfigMixin, {
    */
   leaf: computed('model.children.length', {
     get() {
-      return !this.get('model.children') || this.get('model.children.length') === 0;
-    }
+      return (
+        !this.get('model.children') || this.get('model.children.length') === 0
+      );
+    },
   }),
 
   iconClass: computed('expanded', 'leaf', 'loading', {
@@ -148,34 +158,46 @@ export default Component.extend(WithConfigMixin, {
       let icons = [];
       if (this.get('async')) {
         if (this.get('loading')) {
-          icons = icons.concat(this.iconFromModelOrDefault('nodeLoadingIconClasses'));
+          icons = icons.concat(
+            this.iconFromModelOrDefault('nodeLoadingIconClasses')
+          );
         } else if (!this.get('model.children')) {
           icons = this.iconFromModelOrDefault('nodeCloseIconClasses');
         } else {
           if (this.get('model.children.length') === 0) {
-            icons = icons.concat(this.iconFromModelOrDefault('nodeLeafIconClasses'));
+            icons = icons.concat(
+              this.iconFromModelOrDefault('nodeLeafIconClasses')
+            );
           } else {
-            icons = this.get('expanded') ? icons.concat(this.iconFromModelOrDefault('nodeOpenIconClasses')) : icons.concat(this.iconFromModelOrDefault('nodeCloseIconClasses'));
+            icons = this.get('expanded')
+              ? icons.concat(this.iconFromModelOrDefault('nodeOpenIconClasses'))
+              : icons.concat(
+                  this.iconFromModelOrDefault('nodeCloseIconClasses')
+                );
           }
         }
       } else {
         if (this.get('leaf')) {
           icons = icons.concat(this.get('config.tree.nodeLeafIconClasses'));
         } else {
-          icons = this.get('expanded') ? icons.concat(this.iconFromModelOrDefault('nodeOpenIconClasses')) : icons.concat(this.iconFromModelOrDefault('nodeCloseIconClasses'));
+          icons = this.get('expanded')
+            ? icons.concat(this.iconFromModelOrDefault('nodeOpenIconClasses'))
+            : icons.concat(this.iconFromModelOrDefault('nodeCloseIconClasses'));
         }
       }
-      return icons.join(" ");
-    }
+      return icons.join(' ');
+    },
   }),
 
-  leafClasses: computed("leaf", {
+  leafClasses: computed('leaf', {
     get() {
       var _ref;
       if (this.get('leaf')) {
-        return (_ref = this.get('config.tree.nodeLeafClasses')) != null ? _ref.join(" ") : void 0;
+        return (_ref = this.get('config.tree.nodeLeafClasses')) != null
+          ? _ref.join(' ')
+          : void 0;
       }
-    }
+    },
   }),
 
   hoveredActions: computed('tree.hoveredActions', 'model.nodeType', {
@@ -185,7 +207,7 @@ export default Component.extend(WithConfigMixin, {
       nodeType = this.get('model.nodeType');
       types = [];
       if (nodeType) {
-        globalHoveredActions.forEach(function(ha) {
+        globalHoveredActions.forEach(function (ha) {
           let property = getProperty(ha, 'types');
           if (!property || !property.length) {
             return types.push(ha);
@@ -199,26 +221,32 @@ export default Component.extend(WithConfigMixin, {
       } else {
         return globalHoveredActions;
       }
-    }
+    },
   }),
 
   // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
-  observeMultiSelectedChang: on('init', observer('multi-selected', function() {
-    if (this.get('multi-selected')) {
-      return this.get('tree.multi-selection').pushObject(this.get('model'));
-    } else {
-      return this.get('tree.multi-selection').removeObject(this.get('model'));
-    }
-  })),
+  observeMultiSelectedChang: on(
+    'init',
+    observer('multi-selected', function () {
+      if (this.get('multi-selected')) {
+        return this.get('tree.multi-selection').pushObject(this.get('model'));
+      } else {
+        return this.get('tree.multi-selection').removeObject(this.get('model'));
+      }
+    })
+  ),
 
   // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
-  observeRequestLoadChange: on('init', observer('model.requestReload', function () {
-    if (this.get('model.requestReload')) {
-      this.set('model.requestReload', false);
-      this.send('reloadChildren');
-      return this.set('model.expanded', true);
-    }
-  })),
+  observeRequestLoadChange: on(
+    'init',
+    observer('model.requestReload', function () {
+      if (this.get('model.requestReload')) {
+        this.set('model.requestReload', false);
+        this.send('reloadChildren');
+        return this.set('model.expanded', true);
+      }
+    })
+  ),
 
   /*
    * Get the icon for the model, if set by the tree icon's metadata, otherwise use defaults configured by the tree level.
@@ -227,7 +255,12 @@ export default Component.extend(WithConfigMixin, {
     var iconsPerType, nodeType;
     nodeType = this.get('model.nodeType');
     iconsPerType = this.get('tree.icons-per-type');
-    if (nodeType && iconsPerType && iconsPerType[nodeType] && iconsPerType[nodeType][iconConfigName]) {
+    if (
+      nodeType &&
+      iconsPerType &&
+      iconsPerType[nodeType] &&
+      iconsPerType[nodeType][iconConfigName]
+    ) {
       return iconsPerType[nodeType][iconConfigName];
     } else {
       return this.get('config.tree')[iconConfigName];
@@ -236,19 +269,24 @@ export default Component.extend(WithConfigMixin, {
 
   asyncChildrenRequest() {
     this.set('loading', true);
-    return resolve().then(() => {
-      return this.children(this.get('model'));
-    }).then(() => {
-      this.set('loading', false);
-    });
+    return resolve()
+      .then(() => {
+        return this.children(this.get('model'));
+      })
+      .then(() => {
+        this.set('loading', false);
+      });
   },
   actions: {
-
     /*
      * Expand or close the current node's children
      */
     toggle() {
-      if (this.get('async') && !this.get('expanded') && !this.get('model.children')) {
+      if (
+        this.get('async') &&
+        !this.get('expanded') &&
+        !this.get('model.children')
+      ) {
         this.asyncChildrenRequest();
       } else {
         this.toggleProperty('expanded');
@@ -278,17 +316,16 @@ export default Component.extend(WithConfigMixin, {
     },
     requestChildren() {
       return this.children(...arguments);
-    }
+    },
   },
 
   /*
    * The name of the method to invoke in async mode to get the children of a node when expanded
    */
   // eslint-disable-next-line ember/no-observers
-  loadingHasChanged: observer("loading", function() {
+  loadingHasChanged: observer('loading', function () {
     if (!this.get('loading')) {
       return this.toggleProperty('expanded');
     }
-  })
-
+  }),
 });

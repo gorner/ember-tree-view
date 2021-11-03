@@ -33,9 +33,9 @@ const TreeNode = EmberObject.extend({
 
   hasChildren: gt('children.length', 0),
 
-  emptyChildren: (function() {
+  emptyChildren: function () {
     return this.set('children', A());
-  }),
+  },
 
   hasParent: notEmpty('parent'),
 
@@ -50,7 +50,7 @@ const TreeNode = EmberObject.extend({
         node = node.get('parent');
       }
       return node;
-    }
+    },
   }),
 
   level: computed('children.length', {
@@ -63,16 +63,16 @@ const TreeNode = EmberObject.extend({
         currObj = currObj.get('parent');
       }
       return i;
-    }
+    },
   }),
 
   isLevel1: computed('children.length', {
     get() {
       return this.get('level') === 0;
-    }
+    },
   }),
 
-  findChildBy: function(key, name) {
+  findChildBy: function (key, name) {
     return this._findChildrenOfNodeBy(this, key, name);
   },
 
@@ -80,7 +80,9 @@ const TreeNode = EmberObject.extend({
     var c, _i, _len, _ref, _ref1;
     if (currChild.get(key) === value) {
       return currChild;
-    } else if (((_ref = currChild.get('children')) != null ? _ref.length : void 0) > 0) {
+    } else if (
+      ((_ref = currChild.get('children')) != null ? _ref.length : void 0) > 0
+    ) {
       _ref1 = currChild.get('children');
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         c = _ref1[_i];
@@ -93,7 +95,7 @@ const TreeNode = EmberObject.extend({
       return null;
     }
     return null;
-  }
+  },
 });
 
 export default TreeNode;

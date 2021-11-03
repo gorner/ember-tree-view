@@ -23,19 +23,21 @@ const expandTree = (async, node, depth) => {
   }
   node.set('requestReload', true);
   children = node.get('children');
-  if (children && "function" === typeof children.then) {
-    return children.then((() => {
-      return (loadedChildren) => {
-        return loadedChildren.forEach((c) => {
-          return expandTree(async, c, depth - 1);
-        });
-      };
-    })(this));
+  if (children && 'function' === typeof children.then) {
+    return children.then(
+      (() => {
+        return (loadedChildren) => {
+          return loadedChildren.forEach((c) => {
+            return expandTree(async, c, depth - 1);
+          });
+        };
+      })(this)
+    );
   } else {
     if (async) {
       // Do nothing.
     } else {
-      if (((!children) || children.get('length') === 0) || depth === 0) {
+      if (!children || children.get('length') === 0 || depth === 0) {
         return;
       }
       _results = [];
@@ -57,11 +59,11 @@ export default Component.extend(WithConfigMixin, {
   tagName: 'ul',
   layoutName: 'em-tree',
   classNameBindings: ['styleClasses'],
-  styleClasses: computed("", {
+  styleClasses: computed('', {
     get() {
       let _ref = this.get('config.tree.classes');
-      return _ref != null ? _ref.join(" ") : "";
-    }
+      return _ref != null ? _ref.join(' ') : '';
+    },
   }),
 
   // eslint-disable-next-line ember/no-observers
@@ -71,22 +73,22 @@ export default Component.extend(WithConfigMixin, {
 
   init() {
     this._super();
-    this.set("multi-selection", A());
+    this.set('multi-selection', A());
     this.expandTreeIfNeeded();
   },
 
   expandTreeIfNeeded() {
     let depth = 0;
-      if (!this.get('model')) {
+    if (!this.get('model')) {
+      return;
+    }
+    if (this.get('expand-depth')) {
+      depth = parseInt(this.get('expand-depth'));
+      if (depth === 0) {
         return;
       }
-      if (this.get('expand-depth')) {
-        depth = parseInt(this.get('expand-depth'));
-        if (depth === 0) {
-          return;
-        }
-        return expandTree(this.get('async'), this.get('model'), depth);
-      }
+      return expandTree(this.get('async'), this.get('model'), depth);
+    }
   },
 
   /*
@@ -137,7 +139,7 @@ export default Component.extend(WithConfigMixin, {
   'refresh-expanded': false,
 
   // eslint-disable-next-line ember/no-observers
-  observeRefreshExpanded: observer('refresh-expanded', function() {
+  observeRefreshExpanded: observer('refresh-expanded', function () {
     // DO nothing
   }),
 
@@ -145,6 +147,6 @@ export default Component.extend(WithConfigMixin, {
     requestChildren() {
       // wrap it into promise
       return this.children(...arguments);
-    }
-  }
+    },
+  },
 });
