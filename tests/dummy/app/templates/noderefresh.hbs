@@ -8,7 +8,7 @@
 <EmTree @model={{this.model}} @async={{true}} @selected={{this.selected}} />
 
 {{#if this.selected}}
-  <button {{action "addAndRefresh"}}>Add child to selected node and refresh</button>
+  <button {{on 'click'  this.addAndRefresh}} type="button">Add child to selected node and refresh</button>
 {{/if}}
 
 <h2>Markup</h2>

@@ -7,7 +7,7 @@ export default class AsyncRoute extends Route {
   model() {
     var root;
     root = Node.create({
-      title: 'Family'
+      title: 'Family',
     });
     return root;
   }
