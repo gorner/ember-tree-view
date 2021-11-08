@@ -1,5 +1,9 @@
 import classic from 'ember-classic-decorator';
-import { attributeBindings, classNameBindings, tagName } from '@ember-decorators/component';
+import {
+  attributeBindings,
+  classNameBindings,
+  tagName,
+} from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import StyleBindingsMixin from 'ember-tree-utils/mixins/style-bindings';
@@ -13,7 +17,10 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 @attributeBindings('stickyMode:sticky')
 @tagName('i')
 @classNameBindings('iconClasses')
-export default class TreeNodeIconAction extends Component.extend(WithConfigMixin, StyleBindingsMixin) {
+export default class TreeNodeIconAction extends Component.extend(
+  WithConfigMixin,
+  StyleBindingsMixin
+) {
   /**
    * Bind the visibility css property,
    * this is required for the `sticky` property
@@ -27,7 +34,7 @@ export default class TreeNodeIconAction extends Component.extend(WithConfigMixin
    * @property visibility
    * @private
    */
-  @computed("sticky")
+  @computed('sticky')
   get visibility() {
     if (this.get('sticky')) {
       return 'visible';
@@ -43,7 +50,7 @@ export default class TreeNodeIconAction extends Component.extend(WithConfigMixin
    */
   sticky = false;
 
-  @computed("sticky")
+  @computed('sticky')
   get stickyMode() {
     if (this.get('sticky')) {
       return 'true';
@@ -54,7 +61,7 @@ export default class TreeNodeIconAction extends Component.extend(WithConfigMixin
 
   init() {
     super.init();
-    this.on("click", () => {
+    this.on('click', () => {
       this.invoke();
     });
   }
@@ -64,10 +71,10 @@ export default class TreeNodeIconAction extends Component.extend(WithConfigMixin
    * @property iconClasses
    * @private
    */
-  @computed("meta.classes")
+  @computed('meta.classes')
   get iconClasses() {
     let _ref;
-    return (_ref = this.get('meta.classes')) != null ? _ref.join(" ") : void 0;
+    return (_ref = this.get('meta.classes')) != null ? _ref.join(' ') : void 0;
   }
 
   /**
@@ -75,7 +82,7 @@ export default class TreeNodeIconAction extends Component.extend(WithConfigMixin
    * @property node
    * @public
    */
-  @(computed("").volatile())
+  @(computed('').volatile())
   get node() {
     return this.get('parentView.node');
   }

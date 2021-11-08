@@ -1,35 +1,39 @@
-<span>
-  {{#if this.hasIcon}}
-    <i {{action "toggle"}} class="{{iconClass}}"></i>
-  {{else}}
-    <a {{action "toggle"}} class="text">*</a>
-  {{/if}}
-</span>
+<li class="{{this.styleClasses}} {{this.expandedClasses}} {{this.leafClasses}}">
+  <span>
 
-{{#if this.tree.in-multi-selection}}
-  <span class="em-tree-node-multiselection">
-    {{#if multi-selected}}
-      <i {{action "toggleSelection"}} class="{{this.tree.selected-icon}}"></i>
+    {{this.label}}
+    {{#if this.hasIcon}}
+      <FaIcon {{on 'click' this.toggle}} @icon={{this.iconName}} @class={{this.iconClass}} role="button"/>
     {{else}}
-      <i {{action "toggleSelection"}} class="{{this.tree.unselected-icon}}"></i>
+      <a {{on 'click' this.toggle}} href="" class="text">*</a>
     {{/if}}
   </span>
-{{/if}}
 
-<span {{action "select"}} class="{{nodeSelectedClasses}} title">
-  {{#if this.model.nodeIcon}}
-    {{svg-jar model.nodeIcon class="em-tree-icon" width="24px"}}
-  {{/if}}
-  {{this.model.title}}
-  {{#if this.tree.hovered-actions}}
-    <span class="actions">
-      {{#each this.hoveredActions}}
-        <EmTreeNodeIconAction @meta={{this}} @model={{controller.model}} />
-      {{/each}}
+  {{#if this.tree.in-multi-selection}}
+    <span class="em-tree-node-multiselection">
+      {{#if this.multiSelected}}
+        <i {{on 'click' this.toggleSelection}} role="button" class="{{this.tree.selected-icon}}"></i>
+      {{else}}
+        <i {{on 'click' this.toggleSelection}} role="button" class="{{this.tree.unselected-icon}}"></i>
+      {{/if}}
     </span>
   {{/if}}
-</span>
 
-{{#if this.expanded}}
-  <EmTreeBranch @model={{model}} @tree={{tree}} @async={{async}} @target={{target}} @children={{action "requestChildren"}} />
-{{/if}}
+  <span {{on 'click' this.select}} role="button" class="{{this.nodeSelectedClasses}} title">
+    {{#if this.model.nodeIcon}}
+      {{svg-jar this.model.nodeIcon class="em-tree-icon" width="24px"}}
+    {{/if}}
+    {{this.model.title}}
+    {{#if this.tree.hoveredActions}}
+      <span class="actions">
+        {{#each this.hoveredActions}}
+          <EmTreeNodeIconAction @meta={{this}} @model={{this.controller.model}} />
+        {{/each}}
+      </span>
+    {{/if}}
+  </span>
+
+  {{#if this.expanded}}
+    <EmTreeBranch @model={{this.model}} @tree={{this.tree}} @async={{this.async}} @target={{this.target}} @children={{action "requestChildren"}} />
+  {{/if}}
+</li>

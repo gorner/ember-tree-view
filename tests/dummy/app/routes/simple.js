@@ -9,6 +9,7 @@ export default class SimpleRoute extends Route {
     family = Node.create({
       title: 'Family',
       nodeIcon: 'filing_cabinet',
+      expanded: true,
     });
     suz = family.createChild({
       title: 'Susan',
