@@ -12,12 +12,12 @@ export default class AsyncController extends Controller {
     super.init(...arguments);
     this.set('iconSet', {
       type0: {
-        nodeOpenIconClasses: ['fa-li', 'fa', 'fa-minus-square-o'],
-        nodeCloseIconClasses: ['fa-li', 'fa', 'fa-plus-square-o'],
+        nodeOpenIconName: 'minus',
+        nodeCloseIconName: 'plus',
       },
       type1: {
-        nodeOpenIconClasses: ['fa-li', 'fa', 'fa-tag'],
-        nodeCloseIconClasses: ['fa-li', 'fa', 'fa-tags'],
+        nodeOpenIconName: `tag`,
+        nodeCloseIconName: 'tags',
       },
     });
 
