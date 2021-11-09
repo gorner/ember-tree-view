@@ -9,7 +9,6 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('gettingstarted');
   this.route('simple');
-  this.route('emberdata');
   this.route('async');
   this.route('hoveredactions');
   this.route('expand');

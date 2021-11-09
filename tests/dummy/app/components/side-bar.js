@@ -6,7 +6,6 @@ export default class SideBar extends Component {
     this.items = [
       { route: 'gettingstarted', text: 'Getting Started' },
       { route: 'simple', text: 'Simple' },
-      { route: 'emberdata', text: 'Ember Data' },
       { route: 'async', text: 'Async' },
       { route: 'hoveredactions', text: 'Hovered Actions' },
       { route: 'expand', text: 'Expand' },

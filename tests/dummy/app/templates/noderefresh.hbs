@@ -5,7 +5,7 @@
 </p>
 
 <h2>Demo</h2>
-<EmTree @model={{this.model}} @async={{true}} @selected={{this.selected}} />
+<EmTree @model={{this.model}} @async={{true}} @selected={{this.selected}} @children={{this.getChildren}} />
 
 {{#if this.selected}}
   <button {{on 'click'  this.addAndRefresh}} type="button">Add child to selected node and refresh</button>
