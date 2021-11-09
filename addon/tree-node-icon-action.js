@@ -61,21 +61,11 @@ export default class TreeNodeIconAction extends Component.extend(
   }
 
   /**
-   * An alias to the node model of this action
-   * @property node
-   * @public
-   */
-  @(computed('parentView.node').volatile())
-  get node() {
-    return this.parentView.node;
-  }
-
-  /**
    * Invoked when the action is clicked
    * @method invoke
    */
   @action
   invoke() {
-    return this.parentView.target.send(this.meta?.action, this);
+    this.meta?.action(this);
   }
 }

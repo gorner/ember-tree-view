@@ -14,23 +14,23 @@ export default class HoveredactionsController extends Controller {
       {
         name: 'eye',
         classes: [],
-        action: 'eye',
+        action: this.eye,
         types: ['male'],
       },
       {
         name: 'edit',
         classes: [],
-        action: 'edit',
+        action: this.edit,
         types: ['female'],
       },
       {
         name: 'trash',
         classes: [''],
-        action: 'delete',
+        action: this.delete,
       },
     ];
 
-    let family = TreeNode.create(
+    const family = TreeNode.create(
       {
         title: 'Family',
       },
@@ -46,7 +46,7 @@ export default class HoveredactionsController extends Controller {
       title: 'Luda',
       nodeType: 'female',
     });
-    return (this.model = family);
+    this.model = family;
   }
 
   @action

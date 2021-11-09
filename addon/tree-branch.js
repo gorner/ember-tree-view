@@ -14,11 +14,15 @@ export default class TreeBranch extends Component.extend(WithConfigMixin) {
   /**
    * The model to render its children within this branch
    * this property is set during component markup creation
+   *
+   * @memberof TreeBranch
    */
   model = undefined;
 
   /**
    * A list of {{#crossLink "TreeNode"}}nodes{{/crossLink}} instances.
+   *
+   * @memberof TreeBranch
    */
   @alias('model.children')
   items;

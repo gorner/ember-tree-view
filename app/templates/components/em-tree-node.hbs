@@ -27,7 +27,7 @@
     {{#if this.tree.hovered-actions}}
       <span class="actions">
         {{#each this.hoveredActions as |hoveredAction|}}
-          <EmTreeNodeIconAction @meta={{hoveredAction}} @parentView={{this}} @model={{this.controller.model}} />
+          <EmTreeNodeIconAction @meta={{hoveredAction}} @parentView={{this}} @model={{this.model}} />
         {{/each}}
       </span>
     {{/if}}

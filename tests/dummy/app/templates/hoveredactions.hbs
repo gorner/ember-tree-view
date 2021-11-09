@@ -40,9 +40,9 @@ Message from action: {{this.message}}
       Controller.extend
         message: undefined
         actionsMeta: [
-          {name: 'eye', classes: [''], action: 'eye', types: ['male']}
-          {name: 'edit', classes: [''], action: 'edit', types: ['female']}
-          {name: 'trash', classes: [''], action: 'delete'}
+          {name: 'eye', classes: [''], action: this.eye, types: ['male']}
+          {name: 'edit', classes: [''], action: this.edit, types: ['female']}
+          {name: 'trash', classes: [''], action: this.delete}
         ]
         init: ->
           #TODO: Import EC instead
