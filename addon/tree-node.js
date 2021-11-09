@@ -17,7 +17,7 @@ let getProperty = function (obj, prop) {
  * @class TreeNode
  */
 @classic
-@attributeBindings('multiSelected')
+@attributeBindings('multi-selected')
 export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   layoutName = 'em-tree-node';
   @computed('config.tree.nodeClasses')
@@ -87,7 +87,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    * This is only relevant if the tree configured to support multi selection
    */
   @alias('model.selected')
-  multiSelected;
+  'multi-selected';
 
   /**
    * True if should render an icon tag for this node view
@@ -217,10 +217,10 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
     return this.leaf ? _ref?.join(' ') ?? null : null;
   }
 
-  @computed('tree.hoveredActions', 'model.nodeType')
+  @computed('tree.hovered-actions', 'model.nodeType')
   get hoveredActions() {
     var globalHoveredActions, nodeType, types;
-    globalHoveredActions = this.tree.hoveredActions;
+    globalHoveredActions = this.tree['hovered-actions'];
     nodeType = this.model.nodeType;
     types = [];
     if (nodeType) {
@@ -241,9 +241,9 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   }
 
   // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
-  @observes('multiSelected')
+  @observes('multi-selected')
   observeMultiSelectedChang() {
-    if (this.multiSelected) {
+    if (this['multi-selected']) {
       return this.tree['multi-selection'].pushObject(this.model);
     } else {
       return this.tree['multi-selection'].removeObject(this.model);
@@ -320,10 +320,10 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
 
   @action
   toggleSelection() {
-    if (this.multiSelected) {
-      return this.set('multiSelected', '');
+    if (this['multi-selected']) {
+      return this.set('multi-selected', '');
     } else {
-      return this.set('multiSelected', 'true');
+      return this.set('multi-selected', 'true');
     }
   }
   @action

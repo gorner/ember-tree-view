@@ -12,17 +12,20 @@ export default class HoveredactionsController extends Controller {
 
     this.actionsMeta = [
       {
-        classes: ['fa fa-eye'],
+        name: 'eye',
+        classes: [],
         action: 'eye',
         types: ['male'],
       },
       {
-        classes: ['fa fa-edit'],
+        name: 'edit',
+        classes: [],
         action: 'edit',
         types: ['female'],
       },
       {
-        classes: ['fa fa-trash-o'],
+        name: 'trash',
+        classes: [''],
         action: 'delete',
       },
     ];

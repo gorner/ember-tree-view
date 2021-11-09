@@ -1,11 +1,12 @@
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { observer } from '@ember/object';
-import { A } from '@ember/array';
+import { action, computed } from '@ember/object';
+import { observes } from '@ember-decorators/object';
+import classic from 'ember-classic-decorator';
+import { tagName, className } from '@ember-decorators/component';
 
-// eslint-disable-next-line no-unused-vars
-const refreshExpanded = (node) => {
+/*
+function refreshExpanded(node) {
   let children;
   if (node.get('expanded')) {
     node.set('requestReload', true);
@@ -14,15 +15,21 @@ const refreshExpanded = (node) => {
   if (children && children.length) {
     return refreshExpanded(children);
   }
-};
+}
+*/
 
-const expandTree = (async, node, depth) => {
-  let c, children, _i, _len, _results;
-  if (depth === 0) {
+function expandTree(async, node, depth) {
+  if (depth === 0 || node == null) {
     return;
   }
+
+  let c, children;
+
   node.set('requestReload', true);
-  children = node.get('children');
+
+  children = node.children;
+
+  // Check if the function is promise or not
   if (children && 'function' === typeof children.then) {
     return children.then(
       (() => {
@@ -37,59 +44,61 @@ const expandTree = (async, node, depth) => {
     if (async) {
       // Do nothing.
     } else {
-      if (!children || children.get('length') === 0 || depth === 0) {
+      if (!children || children.length === 0 || depth === 0) {
         return;
       }
-      _results = [];
-      for (_i = 0, _len = children.length; _i < _len; _i++) {
-        c = children[_i];
+      const _results = [];
+      children.forEach((item) => {
+        c = item;
         _results.push(expandTree(async, c, depth - 1));
-      }
+      });
       return _results;
     }
   }
-};
+}
 
 /**
  * A tree component
  *
  * @class Tree
  */
-export default Component.extend(WithConfigMixin, {
-  tagName: 'ul',
-  layoutName: 'em-tree',
-  classNameBindings: ['styleClasses'],
-  styleClasses: computed('', {
-    get() {
-      let _ref = this.get('config.tree.classes');
-      return _ref != null ? _ref.join(' ') : '';
-    },
-  }),
+@classic
+@tagName('ul')
+export default class EmTree extends Component.extend(WithConfigMixin) {
+  layoutName = 'em-tree';
+
+  @className
+  @computed('config.tree.classes')
+  get styleClasses() {
+    const _ref = this.config.tree.classes;
+    return _ref != null ? _ref.join(' ') : '';
+  }
 
   // eslint-disable-next-line ember/no-observers
-  valuesChanged: observer('expand-depth', 'model', () => {
+  @observes('expand-depth', 'model')
+  valuesChanged() {
     this.expandTreeIfNeeded();
-  }),
+  }
 
-  init() {
-    this._super();
-    this.set('multi-selection', A());
+  init(...args) {
+    super.init(...args);
+    this.set('multi-selection', []);
     this.expandTreeIfNeeded();
-  },
+  }
 
   expandTreeIfNeeded() {
     let depth = 0;
-    if (!this.get('model')) {
+    if (!this.model) {
       return;
     }
-    if (this.get('expand-depth')) {
-      depth = parseInt(this.get('expand-depth'));
+    if (this['expand-depth']) {
+      depth = parseInt(this['expand-depth']);
       if (depth === 0) {
         return;
       }
-      return expandTree(this.get('async'), this.get('model'), depth);
+      return expandTree(this.async, this.model, depth);
     }
-  },
+  }
 
   /*
    * An array that contains the hovered actions to be triggered per node
@@ -100,7 +109,7 @@ export default Component.extend(WithConfigMixin, {
    *    {classes: ['fa fa-trash-o'], action: 'delete'}
    * ]
    */
-  'hovered-actions': undefined,
+  'hovered-actions' = undefined;
 
   /*
    * An object that contains meta info about each node type's icons
@@ -116,37 +125,37 @@ export default Component.extend(WithConfigMixin, {
    *    }
    *    }
    */
-  'icons-per-type': undefined,
+  'icons-per-type';
 
   /**
    * The model to render as the root node of the tree
    * this property is expected to be defined by the user
    */
-  model: undefined,
+  model;
 
   /**
    * True if node's children should be loaded asynchronously
    * This gives the opportunity to the user to invoke an async call to the server to retrieve data for the current
    * branch being opened
    */
-  async: false,
+  async = false;
 
-  'in-multi-selection': false,
-  'multi-selection': undefined,
-  'selected-icon': 'fa fa-check',
-  'unselected-icon': 'fa fa-times',
-  'expand-depth': null,
-  'refresh-expanded': false,
+  'in-multi-selection' = false;
+  'multi-selection' = undefined;
+  'selected-icon' = 'fa fa-check';
+  'unselected-icon' = 'fa fa-times';
+  'expand-depth' = null;
+  'refresh-expanded' = false;
 
   // eslint-disable-next-line ember/no-observers
-  observeRefreshExpanded: observer('refresh-expanded', function () {
+  @observes('refresh-expanded')
+  observeRefreshExpanded() {
     // DO nothing
-  }),
+  }
 
-  actions: {
-    requestChildren() {
-      // wrap it into promise
-      return this.children(...arguments);
-    },
-  },
-});
+  @action
+  requestChildren() {
+    // wrap it into promise
+    return this.children(...arguments);
+  }
+}

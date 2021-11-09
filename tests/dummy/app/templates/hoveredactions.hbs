@@ -8,7 +8,7 @@
 <p>
   <ul>
     <li>
-      To define actions, pass an array of actions metadata to the <i>\{{em-tree}}</i> component as <i>hovered-actions</i>
+      To define actions, pass an array of actions metadata to the <i>\{{em-tree}}</i> component as <i>hoveredActions</i>
       property.
     </li>
     <li>
@@ -40,9 +40,9 @@ Message from action: {{this.message}}
       Controller.extend
         message: undefined
         actionsMeta: [
-          {classes: ['fa fa-eye'], action: 'eye', types: ['male']}
-          {classes: ['fa fa-edit'], action: 'edit', types: ['female']}
-          {classes: ['fa fa-trash-o'], action: 'delete'}
+          {name: 'eye', classes: [''], action: 'eye', types: ['male']}
+          {name: 'edit', classes: [''], action: 'edit', types: ['female']}
+          {name: 'trash', classes: [''], action: 'delete'}
         ]
         init: ->
           #TODO: Import EC instead

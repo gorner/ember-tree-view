@@ -24,16 +24,16 @@
       {{svg-jar this.model.nodeIcon class="em-tree-icon" width="24px"}}
     {{/if}}
     {{this.model.title}}
-    {{#if this.tree.hoveredActions}}
+    {{#if this.tree.hovered-actions}}
       <span class="actions">
-        {{#each this.hoveredActions}}
-          <EmTreeNodeIconAction @meta={{this}} @model={{this.controller.model}} />
+        {{#each this.hoveredActions as |hoveredAction|}}
+          <EmTreeNodeIconAction @meta={{hoveredAction}} @parentView={{this}} @model={{this.controller.model}} />
         {{/each}}
       </span>
     {{/if}}
   </span>
 
   {{#if this.expanded}}
-    <EmTreeBranch @model={{this.model}} @tree={{this.tree}} @async={{this.async}} @target={{this.target}} @children={{action "requestChildren"}} />
+    <EmTreeBranch @model={{this.model}} @tree={{this.tree}} @async={{this.async}} @target={{this.target}} @children={{this.requestChildren}} />
   {{/if}}
 </li>

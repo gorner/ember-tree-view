@@ -1,10 +1,7 @@
 import classic from 'ember-classic-decorator';
-import {
-  attributeBindings,
-  classNameBindings,
-  tagName,
-} from '@ember-decorators/component';
-import { computed } from '@ember/object';
+import { tagName } from '@ember-decorators/component';
+import { action, computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 import StyleBindingsMixin from 'ember-tree-utils/mixins/style-bindings';
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
@@ -14,21 +11,29 @@ import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
  */
 
 @classic
-@attributeBindings('stickyMode:sticky')
-@tagName('i')
-@classNameBindings('iconClasses')
+@tagName('span')
 export default class TreeNodeIconAction extends Component.extend(
   WithConfigMixin,
   StyleBindingsMixin
 ) {
+  //('stickyMode:sticky')
+  layoutName = 'em-tree-node-icon-action';
+
   /**
    * Bind the visibility css property,
    * this is required for the `sticky` property
    * @property styleBindings
    * @private
    */
-  styleBindings = 'visibility';
+  styleBindings = ['visibility'];
 
+  @alias('meta.name')
+  iconName;
+
+  @computed('meta.classes')
+  get iconClass() {
+    return this.meta?.classes?.join(' ');
+  }
   /**
    * Defines the css visibility according to the value of the `sticky` property
    * @property visibility
@@ -36,11 +41,7 @@ export default class TreeNodeIconAction extends Component.extend(
    */
   @computed('sticky')
   get visibility() {
-    if (this.get('sticky')) {
-      return 'visible';
-    } else {
-      return void 0;
-    }
+    return this.sticky ? 'visible' : null;
   }
 
   /**
@@ -52,29 +53,11 @@ export default class TreeNodeIconAction extends Component.extend(
 
   @computed('sticky')
   get stickyMode() {
-    if (this.get('sticky')) {
-      return 'true';
-    } else {
-      return void 0;
-    }
+    return this.sticky ? 'true' : null;
   }
 
   init() {
     super.init();
-    this.on('click', () => {
-      this.invoke();
-    });
-  }
-
-  /**
-   * Set the given array of classes
-   * @property iconClasses
-   * @private
-   */
-  @computed('meta.classes')
-  get iconClasses() {
-    let _ref;
-    return (_ref = this.get('meta.classes')) != null ? _ref.join(' ') : void 0;
   }
 
   /**
@@ -82,16 +65,17 @@ export default class TreeNodeIconAction extends Component.extend(
    * @property node
    * @public
    */
-  @(computed('').volatile())
+  @(computed('parentView.node').volatile())
   get node() {
-    return this.get('parentView.node');
+    return this.parentView.node;
   }
 
   /**
    * Invoked when the action is clicked
-   * @method invokde
+   * @method invoke
    */
+  @action
   invoke() {
-    return this.get('parentView.target').send(this.get('meta.action'), this);
+    return this.parentView.target.send(this.meta?.action, this);
   }
 }
