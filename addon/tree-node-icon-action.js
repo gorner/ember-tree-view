@@ -65,7 +65,7 @@ export default class TreeNodeIconAction extends Component.extend(
    * @method invoke
    */
   @action
-  invoke() {
+  handleClick() {
     this.meta?.action(this);
   }
 }

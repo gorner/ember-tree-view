@@ -8,7 +8,7 @@ export default class ExpandController extends Controller {
 
   @action
   anotherLevel() {
-    this.expandDepth = this.expandDepth + 1;
+    this.set('expandDepth', this.expandDepth + 1);
     return this.expandDepth;
   }
 }

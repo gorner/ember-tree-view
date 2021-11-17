@@ -4,18 +4,21 @@ the property should be the max depth level to expand
 
 <h2>Demo</h2>
 <p>
-  <EmTree @model={{this.model}} @selected={{this.current}} @expand-depth={{this.expandDepth}}
+  <EmTree @model={{this.model}}
+    @selected={{this.current}}
+    @expand-depth={{this.expandDepth}}
     @children={{this.getChildren}} />
   <button type="button" {{on 'click' this.anotherLevel}}> Expand Level {{this.expandDepth}}</button>
 </p>
 
+<h2>Code</h2>
 <div class="well line-example">
   <pre>    <code class="handlebars">
-    <EmTree @model={{this.model}} @selected={{this.current}} @expand-depth={{this.expandDepth}} /></code>
+    &lt;EmTree @model={{this.model}} @selected={{this.current}} @expand-depth={{this.expandDepth}} /&gt;
+    </code>
   </pre>
 </div>
 
-<h2>Code</h2>
 <div class="well line-example">
   <pre>
     <code class="coffeescript">

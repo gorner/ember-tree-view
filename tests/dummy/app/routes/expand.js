@@ -5,24 +5,27 @@ import Node from 'ember-tree-view/node';
 @classic
 export default class ExpandRoute extends Route {
   model() {
-    let family, lud, suz;
-    family = Node.create({
+    const family = Node.create({
       title: 'Family',
       nodeIcon: 'filing_cabinet',
-      expanded: true,
+      expanded: false,
     });
-    suz = family.createChild({
+
+    const suz = family.createChild({
       title: 'Susan',
       nodeIcon: 'folder',
     });
-    lud = family.createChild({
+
+    const lud = family.createChild({
       title: 'Luda',
       nodeIcon: 'folder',
     });
+
     suz.createChild({
       title: 'Josh',
       nodeIcon: 'folder',
     });
+
     suz.createChild({
       title: 'Moses',
     });
@@ -34,6 +37,7 @@ export default class ExpandRoute extends Route {
       title: 'Gaya',
       nodeIcon: 'folder',
     });
+
     return family;
   }
 }

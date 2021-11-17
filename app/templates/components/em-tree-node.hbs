@@ -12,9 +12,9 @@
   {{#if this.tree.in-multi-selection}}
     <span class="em-tree-node-multiselection">
       {{#if this.multiSelected}}
-        <i {{on 'click' this.toggleSelection}} role="button" class="{{this.tree.selected-icon}}"></i>
+        <FaIcon {{on 'click' this.toggleSelection}} role="button" @icon={{this.tree.selected-icon}}></FaIcon>
       {{else}}
-        <i {{on 'click' this.toggleSelection}} role="button" class="{{this.tree.unselected-icon}}"></i>
+        <FaIcon {{on 'click' this.toggleSelection}} role="button" @icon="{{this.tree.unselected-icon}}"></FaIcon>
       {{/if}}
     </span>
   {{/if}}
@@ -23,7 +23,7 @@
     {{#if this.model.nodeIcon}}
       {{svg-jar this.model.nodeIcon class="em-tree-icon" width="24px"}}
     {{/if}}
-    {{this.model.title}}
+    <span>{{this.model.title}}</span>
     {{#if this.tree.hovered-actions}}
       <span class="actions">
         {{#each this.hoveredActions as |hoveredAction|}}

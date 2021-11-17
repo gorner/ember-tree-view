@@ -4,6 +4,7 @@ import { action, computed } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import classic from 'ember-classic-decorator';
 import { tagName, className } from '@ember-decorators/component';
+import { A } from '@ember/array';
 
 /*
 function refreshExpanded(node) {
@@ -19,40 +20,27 @@ function refreshExpanded(node) {
 */
 
 function expandTree(async, node, depth) {
-  if (depth === 0 || node == null) {
-    return;
-  }
+  if (depth > 0 && node) {
+    node.set('requestReload', true);
+    const children = node.children;
 
-  let c, children;
-
-  node.set('requestReload', true);
-
-  children = node.children;
-
-  // Check if the function is promise or not
-  if (children && 'function' === typeof children.then) {
-    return children.then(
-      (() => {
-        return (loadedChildren) => {
-          return loadedChildren.forEach((c) => {
-            return expandTree(async, c, depth - 1);
-          });
-        };
-      })(this)
-    );
-  } else {
-    if (async) {
-      // Do nothing.
+    // Check if the function is promise or not
+    if (children && 'function' === typeof children.then) {
+      return children.then(
+        (() => {
+          return (loadedChildren) => {
+            return loadedChildren.forEach((item) => {
+              return expandTree(async, item, depth - 1);
+            });
+          };
+        })(this)
+      );
     } else {
-      if (!children || children.length === 0 || depth === 0) {
-        return;
+      if (!async) {
+        return children?.map((item) => {
+          expandTree(async, item, depth - 1);
+        });
       }
-      const _results = [];
-      children.forEach((item) => {
-        c = item;
-        _results.push(expandTree(async, c, depth - 1));
-      });
-      return _results;
     }
   }
 }
@@ -82,21 +70,13 @@ export default class EmTree extends Component.extend(WithConfigMixin) {
 
   init(...args) {
     super.init(...args);
-    this.set('multi-selection', []);
+    this.set('multi-selection', A());
     this.expandTreeIfNeeded();
   }
 
   expandTreeIfNeeded() {
-    let depth = 0;
-    if (!this.model) {
-      return;
-    }
-    if (this['expand-depth']) {
-      depth = parseInt(this['expand-depth']);
-      if (depth === 0) {
-        return;
-      }
-      return expandTree(this.async, this.model, depth);
+    if (this.model && this['expand-depth'] > 0) {
+      return expandTree(this.async, this.model, this['expand-depth']);
     }
   }
 
@@ -142,8 +122,8 @@ export default class EmTree extends Component.extend(WithConfigMixin) {
 
   'in-multi-selection' = false;
   'multi-selection' = undefined;
-  'selected-icon' = 'fa fa-check';
-  'unselected-icon' = 'fa fa-times';
+  'selected-icon' = 'check';
+  'unselected-icon' = 'times';
   'expand-depth' = null;
   'refresh-expanded' = false;
 
@@ -156,6 +136,8 @@ export default class EmTree extends Component.extend(WithConfigMixin) {
   @action
   requestChildren() {
     // wrap it into promise
-    return this.children(...arguments);
+    if (this.children) {
+      return this.children(...arguments);
+    }
   }
 }

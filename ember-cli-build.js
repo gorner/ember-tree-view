@@ -5,15 +5,13 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
     'ember-bootstrap': {
-      bootstrapVersion: 4,
-      importBootstrapFont: false,
-      importBootstrapCSS: false
+      bootstrapVersion: 5,
+      importBootstrapFont: true,
+      importBootstrapCSS: true,
     },
     svgJar: {
-      sourceDirs: [
-        'node_modules/flat-color-icons/svg',
-      ]
-    }
+      sourceDirs: ['node_modules/flat-color-icons/svg'],
+    },
   });
 
   /*

@@ -78,9 +78,9 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   @computed('model.{nodeIcon,nodeExpandedIcon}', 'expanded')
   get nodeIcon() {
     if (this.expanded) {
-      return this.model.nodeExpandedIcon || this.model.nodeIcon;
+      return this.model?.nodeExpandedIcon || this.model?.nodeIcon;
     }
-    return this.model.nodeIcon;
+    return this.model?.nodeIcon;
   }
   /**
    * True if this node view is currently checked
@@ -92,7 +92,10 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   /**
    * True if should render an icon tag for this node view
    */
-  hasIcon = true;
+  @computed('model')
+  get hasIcon() {
+    return this.model != null;
+  }
 
   /**
    * True if this node can be single selected
@@ -130,7 +133,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    */
   @computed('model.children.length')
   get leaf() {
-    return !this.model.children || this.model.children.length === 0;
+    return this.model?.children?.length === 0;
   }
 
   @computed(
@@ -147,10 +150,10 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
         return this.iconFromModelOrDefault('nodeLoadingIconName');
       }
 
-      if (!this.model.children) {
+      if (!this.model?.children) {
         return this.iconFromModelOrDefault('nodeCloseIconName');
       } else {
-        if (this.model.children.length === 0) {
+        if (this.model?.children.length === 0) {
           return this.iconFromModelOrDefault('nodeLeafIconName');
         } else {
           return this.expanded
@@ -187,7 +190,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
       } else if (!this.model.children) {
         icons = this.iconFromModelOrDefault('nodeCloseIconClasses');
       } else {
-        if (this.model.children.length === 0) {
+        if (this.model?.children.length === 0) {
           icons = icons.concat(
             this.iconFromModelOrDefault('nodeLeafIconClasses')
           );
@@ -219,25 +222,14 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
 
   @computed('tree.hovered-actions', 'model.nodeType')
   get hoveredActions() {
-    var globalHoveredActions, nodeType, types;
-    globalHoveredActions = this.tree['hovered-actions'];
-    nodeType = this.model.nodeType;
-    types = [];
-    if (nodeType) {
-      globalHoveredActions.forEach(function (ha) {
-        let property = getProperty(ha, 'types');
-        if (!property || !property.length) {
-          return types.push(ha);
-        } else {
-          if (property.includes(nodeType)) {
-            return types.push(ha);
-          }
-        }
-      });
-      return types;
-    } else {
-      return globalHoveredActions;
-    }
+    const globalHoveredActions = this.tree['hovered-actions'];
+    const nodeType = this.model.nodeType;
+    return nodeType
+      ? globalHoveredActions.filter((ha) => {
+          const property = getProperty(ha, 'types');
+          return property?.length || property?.includes(nodeType);
+        })
+      : globalHoveredActions;
   }
 
   // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
@@ -249,11 +241,12 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
       return this.tree['multi-selection'].removeObject(this.model);
     }
   }
+
   // eslint-disable-next-line ember/no-on-calls-in-components, ember/no-observers
   @observes('model.requestReload')
   observeRequestLoadChange() {
     if (this.model.requestReload) {
-      this.set('model.requestReload', false);
+      this.model.set('requestReload', false);
       this.send('reloadChildren');
       return this.set('model.expanded', true);
     }
@@ -263,22 +256,16 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    * Get the icon for the model, if set by the tree icon's metadata, otherwise use defaults configured by the tree level.
    */
   iconFromModelOrDefault(iconConfigName) {
-    var iconsPerType, nodeType;
-    nodeType = this.model.nodeType;
-    iconsPerType = this.tree['icons-per-type'];
-    if (
-      nodeType &&
-      iconsPerType &&
-      iconsPerType[nodeType] &&
-      iconsPerType[nodeType][iconConfigName]
-    ) {
-      return iconsPerType[nodeType][iconConfigName];
-    } else {
-      return this.config.tree[iconConfigName];
-    }
+    const { nodeType } = this.model;
+    const iconsPerType = this.tree['icons-per-type'];
+
+    return (
+      iconsPerType?.[nodeType]?.[iconConfigName] ??
+      this.config.tree[iconConfigName]
+    );
   }
 
-  asyncChildrenRequest() {
+  requestChildrenAsync() {
     this.set('loading', true);
     return resolve()
       .then(() => {
@@ -294,8 +281,8 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    */
   @action
   toggle() {
-    if (this.async && !this.expanded && !this.model.children) {
-      this.asyncChildrenRequest();
+    if (this.async && !this.expanded && !this.model?.children) {
+      this.requestChildrenAsync();
     } else {
       this.toggleProperty('expanded');
     }
@@ -307,25 +294,22 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   @action
   reloadChildren() {
     if (this.async) {
-      this.asyncChildrenRequest();
+      this.requestChildrenAsync();
     }
   }
+
   @action
   select() {
-    if (!this.selectable) {
-      return;
+    if (this.selectable) {
+      return this.set('tree.selected', this.model);
     }
-    return this.set('tree.selected', this.model);
   }
 
   @action
   toggleSelection() {
-    if (this['multi-selected']) {
-      return this.set('multi-selected', '');
-    } else {
-      return this.set('multi-selected', 'true');
-    }
+    this.toggleProperty('multi-selected');
   }
+
   @action
   requestChildren() {
     return this.children(...arguments);
