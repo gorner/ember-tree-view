@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { gt, notEmpty } from '@ember/object/computed';
-import EmberObject, { computed } from '@ember/object';
+import EmberObject, { computed, set, get } from '@ember/object';
 import { A } from '@ember/array';
 
 @classic
@@ -12,7 +12,7 @@ export default class TreeNode extends EmberObject {
     if (!this.children) {
       this.emptyChildren();
     }
-    node.set('parent', this);
+    set(node, 'parent', this);
     this.children.addObject(node());
     return node;
   }
@@ -22,13 +22,13 @@ export default class TreeNode extends EmberObject {
       this.emptyChildren();
     }
     let c = TreeNode.create(object);
-    c.set('parent', this);
+    set(c, 'parent', this);
     this.children.pushObject(c);
     return c;
   }
 
   removeChild(node) {
-    node.set('parent', void 0);
+    set(node, 'parent', void 0);
     this.children.removeObject(node);
     return node;
   }
@@ -37,7 +37,7 @@ export default class TreeNode extends EmberObject {
   hasChildren;
 
   emptyChildren() {
-    return this.set('children', A());
+    return set(this, 'children', A());
   }
 
   @notEmpty('parent')
@@ -45,10 +45,9 @@ export default class TreeNode extends EmberObject {
 
   @computed('parent')
   get root() {
-    let node;
-    node = this;
-    while (node.get('hasParent')) {
-      if (!node.get('hasParent')) {
+    let node = this;
+    while (node.hasParent) {
+      if (!node.hasParent) {
         return node;
       }
       node = node.get('parent');
@@ -61,9 +60,9 @@ export default class TreeNode extends EmberObject {
     let currObj = this;
     let i = 0;
 
-    while (currObj.get('hasParent')) {
+    while (currObj.hasParent) {
       i++;
-      currObj = currObj.get('parent');
+      currObj = currObj.parent;
     }
     return i;
   }
@@ -78,13 +77,13 @@ export default class TreeNode extends EmberObject {
   }
 
   _findChildrenOfNodeBy(currChild, key, value) {
-    var c, _i, _len, _ref, _ref1;
-    if (currChild.get(key) === value) {
+    let c, _i, _len, _ref, _ref1;
+    if (get(currChild, key) === value) {
       return currChild;
     } else if (
-      ((_ref = currChild.get('children')) != null ? _ref.length : void 0) > 0
+      ((_ref = currChild.children) != null ? _ref.length : void 0) > 0
     ) {
-      _ref1 = currChild.get('children');
+      _ref1 = currChild.children;
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         c = _ref1[_i];
         if (c.get(key) === value) {

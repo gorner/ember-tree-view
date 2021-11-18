@@ -6,10 +6,7 @@ import { observes } from '@ember-decorators/object';
 import { resolve } from 'rsvp';
 import classic from 'ember-classic-decorator';
 import { attributeBindings } from '@ember-decorators/component';
-
-let getProperty = function (obj, prop) {
-  return obj?.[prop];
-};
+import { set } from '@ember/object';
 
 /**
  * A node of a tree.
@@ -50,6 +47,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
     const _ref = this.config.tree.nodeSelectedClasses;
     return this.isSelected ? _ref?.join(' ') ?? null : null;
   }
+
   /**
    * The model the tree node view is bound to
    */
@@ -226,7 +224,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
     const nodeType = this.model.nodeType;
     return nodeType
       ? globalHoveredActions.filter((ha) => {
-          const property = getProperty(ha, 'types');
+          const property = ha['types'];
           return property?.length || property?.includes(nodeType);
         })
       : globalHoveredActions;
@@ -246,9 +244,9 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   @observes('model.requestReload')
   observeRequestLoadChange() {
     if (this.model.requestReload) {
-      this.model.set('requestReload', false);
+      set(this.model, 'requestReload', false);
       this.send('reloadChildren');
-      return this.set('model.expanded', true);
+      return set(this.model, 'expanded', true);
     }
   }
 

@@ -1,27 +1,18 @@
 import WithConfigMixin from 'ember-tree-utils/mixins/with-config';
 import Component from '@ember/component';
-import { action, computed } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import classic from 'ember-classic-decorator';
 import { tagName, className } from '@ember-decorators/component';
 import { A } from '@ember/array';
-
-/*
-function refreshExpanded(node) {
-  let children;
-  if (node.get('expanded')) {
-    node.set('requestReload', true);
-  }
-  children = node.get('children');
-  if (children && children.length) {
-    return refreshExpanded(children);
-  }
-}
-*/
+import { run } from '@ember/runloop';
 
 function expandTree(async, node, depth) {
   if (depth > 0 && node) {
-    node.set('requestReload', true);
+    set(node, 'requestReload', true);
+    // Key part to allow oberves works
+    node.notifyPropertyChange('requestReload');
+
     const children = node.children;
 
     // Check if the function is promise or not
@@ -70,7 +61,7 @@ export default class EmTree extends Component.extend(WithConfigMixin) {
 
   init(...args) {
     super.init(...args);
-    this.set('multi-selection', A());
+    set(this, 'multi-selection', A());
     this.expandTreeIfNeeded();
   }
 
