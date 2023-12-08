@@ -5,7 +5,6 @@ import { action, computed } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import { resolve } from 'rsvp';
 import classic from 'ember-classic-decorator';
-import { attributeBindings } from '@ember-decorators/component';
 import { set } from '@ember/object';
 
 /**
@@ -14,9 +13,9 @@ import { set } from '@ember/object';
  * @class TreeNode
  */
 @classic
-@attributeBindings('multi-selected')
 export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   layoutName = 'em-tree-node';
+  tagName = '';
   @computed('config.tree.nodeClasses')
   get styleClasses() {
     const _ref = this.config.tree.nodeClasses;
