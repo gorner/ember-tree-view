@@ -5,7 +5,6 @@ import { observes } from '@ember-decorators/object';
 import classic from 'ember-classic-decorator';
 import { tagName, className } from '@ember-decorators/component';
 import { A } from '@ember/array';
-import { run } from '@ember/runloop';
 
 function expandTree(async, node, depth) {
   if (depth > 0 && node) {

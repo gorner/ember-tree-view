@@ -118,12 +118,14 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
   get branch() {
     return this.parentView;
   }
+
+  async = undefined;
   /**
    * true if the loading mode of the node's children should be async
    */
-  @computed('parentView.node')
-  get async() {
-    return this.parentView.node;
+  @computed('async', 'parentView.node')
+  get _async() {
+    return this.async === undefined ? this.parentView.node : this.async;
   }
 
   /**
@@ -131,27 +133,27 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    */
   @computed('model.children.length')
   get leaf() {
-    return this.model?.children?.length === 0;
+    return this.model?.get('children')?.length === 0;
   }
 
   @computed(
     'expanded',
     'leaf',
     'loading',
-    'async',
+    '_async',
     'model.children.length',
     'config.tree.nodeLeafIconClasses'
   )
   get iconName() {
-    if (this.async) {
+    if (this._async) {
       if (this.loading) {
         return this.iconFromModelOrDefault('nodeLoadingIconName');
       }
 
-      if (!this.model?.children) {
+      if (!this.model?.get('children')) {
         return this.iconFromModelOrDefault('nodeCloseIconName');
       } else {
-        if (this.model?.children.length === 0) {
+        if (this.model?.get('children').length === 0) {
           return this.iconFromModelOrDefault('nodeLeafIconName');
         } else {
           return this.expanded
@@ -174,21 +176,21 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
     'expanded',
     'leaf',
     'loading',
-    'async',
+    '_async',
     'model.children.length',
     'config.tree.nodeLeafIconClasses'
   )
   get iconClass() {
     let icons = [];
-    if (this.async) {
+    if (this._async) {
       if (this.loading) {
         icons = icons.concat(
           this.iconFromModelOrDefault('nodeLoadingIconClasses')
         );
-      } else if (!this.model.children) {
+      } else if (!this.model.get('children')) {
         icons = this.iconFromModelOrDefault('nodeCloseIconClasses');
       } else {
-        if (this.model?.children.length === 0) {
+        if (this.model?.get('children').length === 0) {
           icons = icons.concat(
             this.iconFromModelOrDefault('nodeLeafIconClasses')
           );
@@ -279,7 +281,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    */
   @action
   toggle() {
-    if (this.async && !this.expanded && !this.model?.children) {
+    if (this._async && !this.expanded && !this.model?.children) {
       this.requestChildrenAsync();
     } else {
       this.toggleProperty('expanded');
@@ -291,7 +293,7 @@ export default class EmTreeNode extends Component.extend(WithConfigMixin) {
    */
   @action
   reloadChildren() {
-    if (this.async) {
+    if (this._async) {
       this.requestChildrenAsync();
     }
   }
