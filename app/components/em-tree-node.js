@@ -1,3 +1,3 @@
-import TreeNodeComponent from 'ember-tree-view/tree-node';
+import TreeNodeComponent from '@gorner/ember-tree-view/tree-node';
 
 export default TreeNodeComponent;

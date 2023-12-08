@@ -1,20 +1,26 @@
 {
-  "name": "ember-tree-view",
-  "version": "3.7.8",
+  "name": "@gorner/ember-tree-view",
+  "version": "3.8.0-alpha.0",
   "description": "Tree View Component for Ember.",
   "keywords": [
     "ember-addon"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/systembugtj/ember-tree-view"
+    "url": "https://github.com/gorner/ember-tree-view"
   },
   "license": "MIT",
-  "author": {
-    "name": "Albert Li",
-    "email": "albert_lee@hotmail.com",
-    "url": "https://github.com/systembugtj/ember-tree-view"
-  },
+  "authors": [
+    {
+      "name": "Albert Li",
+      "email": "albert_lee@hotmail.com",
+      "url": "https://github.com/systembugtj/ember-tree-view"
+    },
+    {
+      "name": "Joshua Gorner",
+      "url": "https://github.com/gorner"
+    }
+  ],
   "directories": {
     "doc": "doc",
     "test": "tests"

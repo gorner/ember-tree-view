@@ -1,7 +1,7 @@
 import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
 import Controller from '@ember/controller';
-import TreeNode from 'ember-tree-view/node';
+import TreeNode from '@gorner/ember-tree-view/node';
 
 @classic
 export default class HoveredactionsController extends Controller {
