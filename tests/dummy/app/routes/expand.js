@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
-import Node from 'ember-tree-view/node';
+import Node from '@gorner/ember-tree-view/node';
 
 @classic
 export default class ExpandRoute extends Route {

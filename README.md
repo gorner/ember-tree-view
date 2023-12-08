@@ -1,16 +1,16 @@
-# ember-tree-view
+# @gorner/ember-tree-view
 
-A simple tree view addon for ember
+A slightly-improved simple tree view addon for Ember, forked from [ember-tree-view](https://github.com/systembugtj/ember-tree-view)
 
-* Ember.js v3.20 or above
-* Ember CLI v3.20 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
 * Node.js v12 or above
 
 Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install member-tree-view
+ember install @gorner/ember-tree-view
 ```
 
 
@@ -18,21 +18,19 @@ Usage
 ------------------------------------------------------------------------------
 
 ```
-{{em-tree model=model selected=selected}}
+<EmTree @model={{@model}} @selected={{@selected}} />
 ```
 
 Asynchronous loading tree node
 ```
-{{em-tree model=model async=true icons-per-type=iconSet expand-depth=expandDepth children=(action "getChildren")}}
+<EmTree @model={{this.model}} @async={{true}} @icons-per-type={{@iconSet}} @expand-depth={{@expandDepth}} @children={{this.getChildren}} />
 ```
 controller
 
 ```
-actions: {
-  // return promise for async
-  getChildren(node) { 
-    
-  }
+@action
+getChildren(node) {
+
 }
 ```
 
