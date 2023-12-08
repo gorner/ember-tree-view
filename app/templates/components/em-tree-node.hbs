@@ -3,7 +3,11 @@
 
     {{this.label}}
     {{#if this.hasIcon}}
-      <FaIcon {{on 'click' this.toggle}} @icon={{this.iconName}} @class={{this.iconClass}} role="button"/>
+      <EmTreeNodeIconContainer
+        @iconName={{this.iconName}}
+        @iconClass={{this.iconClass}}
+        {{on 'click' this.toggle}}
+      />
     {{else}}
       <a {{on 'click' this.toggle}} href="" class="text">*</a>
     {{/if}}
@@ -12,9 +16,15 @@
   {{#if this.tree.in-multi-selection}}
     <span class="em-tree-node-multiselection">
       {{#if this.multiSelected}}
-        <FaIcon {{on 'click' this.toggleSelection}} role="button" @icon={{this.tree.selected-icon}}></FaIcon>
+        <EmTreeNodeIconContainer
+          @iconName={{this.tree.selected-icon}}
+          {{on 'click' this.toggleSelection}}
+        />
       {{else}}
-        <FaIcon {{on 'click' this.toggleSelection}} role="button" @icon="{{this.tree.unselected-icon}}"></FaIcon>
+        <EmTreeNodeIconContainer
+          @iconName={{this.tree.unselected-icon}}
+          {{on 'click' this.toggleSelection}}
+        />
       {{/if}}
     </span>
   {{/if}}
@@ -34,6 +44,6 @@
   </span>
 
   {{#if this.expanded}}
-    <EmTreeBranch @model={{this.model}} @tree={{this.tree}} @async={{this.async}} @target={{this.target}} @children={{this.requestChildren}} />
+    <EmTreeBranch @model={{this.model}} @tree={{this.tree}} @async={{this._async}} @target={{this.target}} @children={{this.requestChildren}} />
   {{/if}}
 </li>
